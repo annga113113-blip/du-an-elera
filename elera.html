@@ -1,0 +1,2551 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ELERA — Thời Trang Nữ Cao Cấp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   ELERA — CSS Variables & Reset
+═══════════════════════════════════════════════ */
+:root {
+  --cream:       #fdf8f5;
+  --white:       #ffffff;
+  --blush:       #f9c6d0;
+  --rose:        #e8849a;
+  --deep-rose:   #c45f78;
+  --petal:       #fce8ed;
+  --soft-pink:   #f7d6de;
+  --sakura:      #ffb7c5;
+  --text-dark:   #2a1f24;
+  --text-mid:    #6b4f58;
+  --text-light:  #b08a98;
+  --border:      #f0d8df;
+  --border-dark: #e0b8c4;
+  --gold:        #c9a96e;
+  --shadow-pink: 0 8px 40px rgba(228,132,154,0.18);
+  --shadow-soft: 0 4px 24px rgba(42,31,36,0.08);
+  --radius:      16px;
+  --radius-lg:   24px;
+  --transition:  0.3s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--cream);
+  color:var(--text-dark);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--petal);}
+::-webkit-scrollbar-thumb{background:var(--rose);border-radius:3px;}
+
+/* Floating petals background decoration */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 600px 400px at 10% 20%, rgba(255,183,197,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 300px at 90% 80%, rgba(249,198,208,0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 250px at 50% 50%, rgba(252,232,237,0.08) 0%, transparent 70%);
+}
+
+/* ═══════════════════════════════════════════════
+   TOP BAR
+═══════════════════════════════════════════════ */
+.top-bar{
+  background:var(--deep-rose);color:white;
+  text-align:center;padding:9px 20px;
+  font-size:0.78rem;letter-spacing:1.5px;font-weight:500;
+  position:relative;z-index:200;
+}
+.top-bar span{opacity:0.8;margin:0 16px;}
+
+/* ═══════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(253,248,245,0.96);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:var(--transition);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:72px;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.9rem;font-weight:600;
+  letter-spacing:8px;color:var(--text-dark);
+  cursor:pointer;text-transform:uppercase;
+  position:relative;
+}
+.nav-logo::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--rose),transparent);
+}
+.nav-links{display:flex;gap:4px;list-style:none;}
+.nav-links a{
+  color:var(--text-mid);text-decoration:none;
+  font-size:0.82rem;font-weight:500;letter-spacing:1.2px;
+  padding:8px 16px;border-radius:999px;
+  transition:var(--transition);cursor:pointer;text-transform:uppercase;
+}
+.nav-links a:hover,.nav-links a.active{
+  color:var(--deep-rose);background:var(--petal);
+}
+.nav-right{display:flex;gap:8px;align-items:center;}
+.nav-icon-btn{
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--border);background:white;
+  cursor:pointer;font-size:1rem;transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;color:var(--text-mid);
+}
+.nav-icon-btn:hover{border-color:var(--rose);background:var(--petal);}
+.badge{
+  position:absolute;top:-4px;right:-4px;
+  background:var(--deep-rose);color:white;
+  width:18px;height:18px;border-radius:50%;
+  font-size:0.65rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.btn-nav-login{
+  background:var(--text-dark);color:white;
+  border:none;border-radius:999px;
+  padding:10px 24px;font-size:0.8rem;font-weight:600;
+  letter-spacing:1px;cursor:pointer;transition:var(--transition);
+  font-family:'DM Sans',sans-serif;text-transform:uppercase;
+}
+.btn-nav-login:hover{background:var(--deep-rose);}
+
+/* ═══════════════════════════════════════════════
+   PAGES
+═══════════════════════════════════════════════ */
+.page{display:none;position:relative;z-index:1;}
+.page.active{display:block;}
+
+/* ═══════════════════════════════════════════════
+   HOME — HERO
+═══════════════════════════════════════════════ */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  padding-top:72px;overflow:hidden;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 60px 80px 80px;
+  position:relative;
+}
+.hero-left::before{
+  content:'';position:absolute;
+  top:15%;left:-80px;width:320px;height:320px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(249,198,208,0.4),transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--deep-rose);font-weight:600;
+  margin-bottom:28px;
+  animation:fadeUp .7s ease both;
+}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--rose);}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.2rem,5.5vw,5.4rem);
+  font-weight:300;line-height:1.1;
+  color:var(--text-dark);letter-spacing:-1px;
+  animation:fadeUp .7s .1s ease both;
+}
+.hero h1 em{font-style:italic;color:var(--deep-rose);}
+.hero-sub{
+  margin:28px 0 44px;
+  color:var(--text-light);font-size:1rem;line-height:1.8;font-weight:300;
+  max-width:380px;
+  animation:fadeUp .7s .2s ease both;
+}
+.hero-btns{display:flex;gap:14px;animation:fadeUp .7s .3s ease both;}
+.btn-primary{
+  background:var(--text-dark);color:white;
+  border:none;border-radius:999px;padding:15px 36px;
+  font-size:0.85rem;font-weight:600;letter-spacing:1px;
+  cursor:pointer;transition:var(--transition);
+  font-family:'DM Sans',sans-serif;text-transform:uppercase;
+}
+.btn-primary:hover{background:var(--deep-rose);transform:translateY(-2px);box-shadow:0 8px 28px rgba(196,95,120,0.35);}
+.btn-outline-dark{
+  background:transparent;color:var(--text-dark);
+  border:1.5px solid var(--text-dark);border-radius:999px;padding:15px 36px;
+  font-size:0.85rem;font-weight:600;letter-spacing:1px;
+  cursor:pointer;transition:var(--transition);
+  font-family:'DM Sans',sans-serif;text-transform:uppercase;
+}
+.btn-outline-dark:hover{border-color:var(--rose);color:var(--deep-rose);}
+.hero-stats{
+  display:flex;gap:40px;margin-top:56px;
+  animation:fadeUp .7s .4s ease both;
+}
+.stat{border-left:2px solid var(--border);padding-left:16px;}
+.stat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:600;color:var(--text-dark);
+}
+.stat-lbl{font-size:0.75rem;color:var(--text-light);letter-spacing:1px;font-weight:500;}
+
+.hero-right{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--soft-pink) 0%,var(--petal) 50%,var(--blush) 100%);
+}
+.hero-img-wrap{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.hero-img-placeholder{
+  width:72%;max-width:400px;
+  aspect-ratio:3/4;
+  background:rgba(255,255,255,0.5);
+  border:1px dashed var(--border-dark);
+  border-radius:var(--radius-lg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;color:var(--text-light);font-size:0.8rem;letter-spacing:1px;
+  text-align:center;padding:20px;
+  animation:fadeLeft .8s .2s ease both;
+}
+.hero-img-placeholder .ph-icon{font-size:3rem;opacity:0.5;}
+.hero-main-img{
+  width:72%;max-width:400px;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  border-radius:var(--radius-lg);
+  border:1px solid rgba(255,255,255,0.65);
+  box-shadow:var(--shadow-soft);
+  animation:fadeLeft .8s .2s ease both;
+}
+.hero-float-badge{
+  position:absolute;bottom:14%;left:8%;
+  background:white;border-radius:var(--radius);
+  padding:16px 20px;box-shadow:var(--shadow-soft);
+  border:1px solid var(--border);
+  animation:floatBadge 3s ease-in-out infinite;
+}
+.hero-float-badge .lbl{font-size:0.7rem;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;}
+.hero-float-badge .val{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--deep-rose);}
+.hero-tag-top{
+  position:absolute;top:10%;right:8%;
+  background:var(--deep-rose);color:white;
+  border-radius:999px;padding:10px 20px;
+  font-size:0.75rem;font-weight:600;letter-spacing:1px;
+  box-shadow:var(--shadow-pink);
+  animation:floatBadge 3s 1s ease-in-out infinite;
+}
+/* Sakura petals decoration */
+.petal-deco{
+  position:absolute;font-size:1.8rem;opacity:0.15;
+  animation:floatPetal 6s ease-in-out infinite;
+}
+.petal-deco:nth-child(1){top:12%;left:8%;animation-delay:0s;}
+.petal-deco:nth-child(2){top:60%;right:6%;animation-delay:1.5s;font-size:1.2rem;}
+.petal-deco:nth-child(3){bottom:20%;left:12%;animation-delay:3s;font-size:2.2rem;}
+
+/* ═══════════════════════════════════════════════
+   MARQUEE RIBBON
+═══════════════════════════════════════════════ */
+.ribbon{
+  background:var(--blush);
+  padding:14px 0;overflow:hidden;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.ribbon-inner{
+  display:flex;gap:0;white-space:nowrap;
+  animation:marquee 20s linear infinite;
+}
+.ribbon-item{
+  flex-shrink:0;padding:0 40px;
+  font-size:0.78rem;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--text-mid);font-weight:500;
+  display:flex;align-items:center;gap:20px;
+}
+.ribbon-item::after{content:'✿';color:var(--rose);font-size:0.8rem;}
+
+/* ═══════════════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════════════ */
+.section{padding:90px 80px;}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;}
+.section-label{
+  font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--rose);font-weight:600;margin-bottom:10px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';width:24px;height:1px;background:var(--rose);}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem;font-weight:300;line-height:1.2;color:var(--text-dark);
+}
+.section-title em{font-style:italic;color:var(--deep-rose);}
+.section-sub{color:var(--text-light);font-size:0.9rem;line-height:1.7;max-width:300px;text-align:right;}
+.link-all{
+  color:var(--text-mid);font-size:0.8rem;letter-spacing:1.5px;
+  text-transform:uppercase;font-weight:600;cursor:pointer;
+  text-decoration:none;transition:var(--transition);
+  display:inline-flex;align-items:center;gap:8px;
+  border-bottom:1px solid var(--border-dark);padding-bottom:2px;
+}
+.link-all:hover{color:var(--deep-rose);border-color:var(--rose);}
+
+/* ═══════════════════════════════════════════════
+   CATEGORY STRIP
+═══════════════════════════════════════════════ */
+.cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+.cat-card{
+  background:white;border:1px solid var(--border);
+  border-radius:var(--radius);padding:32px 20px;
+  text-align:center;cursor:pointer;transition:var(--transition);
+  position:relative;overflow:hidden;
+}
+.cat-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blush),var(--rose));
+  transform:scaleX(0);transition:var(--transition);transform-origin:left;
+}
+.cat-card:hover{border-color:var(--blush);transform:translateY(-6px);box-shadow:var(--shadow-pink);}
+.cat-card:hover::after{transform:scaleX(1);}
+.cat-icon{font-size:2.4rem;margin-bottom:14px;}
+.cat-name{font-weight:600;font-size:0.9rem;color:var(--text-dark);margin-bottom:4px;letter-spacing:0.5px;}
+.cat-count{font-size:0.75rem;color:var(--text-light);}
+
+/* ═══════════════════════════════════════════════
+   PRODUCT CARD
+═══════════════════════════════════════════════ */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;}
+.product-grid.cols3{grid-template-columns:repeat(3,1fr);}
+
+.product-card{
+  background:white;border-radius:var(--radius-lg);
+  overflow:hidden;cursor:pointer;transition:var(--transition);
+  border:1px solid var(--border);
+  position:relative;
+}
+.product-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-pink);border-color:var(--blush);}
+
+.product-img{
+  width:100%;aspect-ratio:3/4;
+  background:linear-gradient(160deg,var(--petal),var(--soft-pink));
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.product-img img{width:100%;height:100%;object-fit:cover;}
+.img-placeholder{
+  display:flex;flex-direction:column;align-items:center;
+  gap:10px;color:var(--text-light);text-align:center;padding:20px;
+}
+.img-placeholder .ph-big{font-size:3.5rem;opacity:0.35;}
+.img-placeholder span{font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase;}
+
+.prod-badge{
+  position:absolute;top:14px;left:14px;
+  font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding:5px 12px;border-radius:999px;
+}
+.prod-badge.sale{background:var(--deep-rose);color:white;}
+.prod-badge.new{background:var(--text-dark);color:white;}
+.prod-badge.hot{background:var(--gold);color:white;}
+.prod-badge.limited{background:white;color:var(--text-dark);border:1px solid var(--border-dark);}
+
+.prod-actions{
+  position:absolute;top:14px;right:14px;
+  display:flex;flex-direction:column;gap:8px;
+  opacity:0;transform:translateX(10px);transition:var(--transition);
+}
+.product-card:hover .prod-actions{opacity:1;transform:translateX(0);}
+.action-btn{
+  width:36px;height:36px;border-radius:50%;
+  background:white;border:1px solid var(--border);
+  cursor:pointer;font-size:1rem;transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-mid);box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+.action-btn:hover{background:var(--petal);border-color:var(--rose);color:var(--deep-rose);}
+.action-btn.active{color:var(--deep-rose);}
+
+.quick-add{
+  position:absolute;bottom:0;left:0;right:0;
+  background:rgba(42,31,36,0.92);color:white;
+  border:none;padding:14px;font-size:0.78rem;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;
+  transition:var(--transition);font-family:'DM Sans',sans-serif;
+  transform:translateY(100%);
+}
+.product-card:hover .quick-add{transform:translateY(0);}
+.quick-add:hover{background:var(--deep-rose);}
+
+.product-info{padding:18px 20px 22px;}
+.product-brand{font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.product-name{font-weight:500;font-size:0.95rem;color:var(--text-dark);margin-bottom:8px;line-height:1.4;}
+.product-rating{display:flex;align-items:center;gap:6px;margin-bottom:12px;}
+.stars{color:var(--rose);font-size:0.75rem;letter-spacing:1px;}
+.r-num{font-size:0.75rem;font-weight:600;color:var(--text-dark);}
+.r-cnt{font-size:0.72rem;color:var(--text-light);}
+.product-price-row{display:flex;align-items:center;gap:10px;}
+.product-price{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--deep-rose);}
+.product-old{font-size:0.85rem;color:var(--text-light);text-decoration:line-through;}
+.color-swatches{display:flex;gap:6px;margin-top:12px;}
+.swatch{
+  width:18px;height:18px;border-radius:50%;
+  border:2px solid white;box-shadow:0 0 0 1px var(--border);
+  cursor:pointer;transition:var(--transition);
+}
+.swatch:hover,.swatch.active{box-shadow:0 0 0 2px var(--rose);}
+
+/* ═══════════════════════════════════════════════
+   FEATURED BANNER
+═══════════════════════════════════════════════ */
+.featured-banner{
+  margin:0 80px;
+  background:linear-gradient(135deg,var(--soft-pink) 0%,var(--petal) 40%,var(--blush) 100%);
+  border-radius:var(--radius-lg);
+  padding:80px 80px;overflow:hidden;position:relative;
+  border:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+}
+.featured-banner::before{
+  content:'✿';position:absolute;
+  right:-40px;top:-40px;font-size:300px;
+  color:rgba(255,183,197,0.12);line-height:1;
+  pointer-events:none;
+}
+.featured-content .eyebrow{color:var(--deep-rose);font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:16px;}
+.featured-content h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.2rem;font-weight:300;line-height:1.15;color:var(--text-dark);
+  margin-bottom:20px;
+}
+.featured-content h2 em{font-style:italic;color:var(--deep-rose);}
+.featured-content p{color:var(--text-mid);font-size:0.95rem;line-height:1.8;margin-bottom:36px;font-weight:300;}
+.featured-img{
+  aspect-ratio:4/5;border-radius:var(--radius);
+  border:1px solid var(--border);
+  overflow:hidden;
+  position:relative;
+}
+.featured-img img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+.featured-img .ph-icon{font-size:3rem;opacity:0.4;}
+
+/* ═══════════════════════════════════════════════
+   LOOKBOOK GRID
+═══════════════════════════════════════════════ */
+.lookbook-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:16px;
+}
+.look-item{
+  background:linear-gradient(160deg,var(--petal),var(--soft-pink));
+  border-radius:var(--radius);overflow:hidden;position:relative;
+  cursor:pointer;transition:var(--transition);border:1px solid var(--border);
+}
+.look-item:hover{box-shadow:var(--shadow-pink);}
+.look-item > img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+}
+.look-item.tall{grid-row:span 2;aspect-ratio:unset;min-height:580px;}
+.look-item:not(.tall){aspect-ratio:1;min-height:280px;}
+.look-placeholder{
+  width:100%;height:100%;min-height:280px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;color:var(--text-light);font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;
+}
+.look-placeholder .ph-icon{font-size:2.5rem;opacity:0.35;}
+.look-overlay{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;
+  background:linear-gradient(transparent,rgba(42,31,36,0.7));
+  padding:28px 20px 20px;
+  opacity:0;transition:var(--transition);
+}
+.look-item:hover .look-overlay{opacity:1;}
+.look-overlay .look-name{color:white;font-weight:600;font-size:0.9rem;margin-bottom:4px;}
+.look-overlay .look-price{color:var(--blush);font-family:'Cormorant Garamond',serif;font-size:1.1rem;}
+
+/* ═══════════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════════ */
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.testi-card{
+  background:white;border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:32px 28px;
+  transition:var(--transition);position:relative;
+}
+.testi-card:hover{border-color:var(--blush);box-shadow:var(--shadow-pink);}
+.testi-card::before{
+  content:'"';position:absolute;top:16px;right:24px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;color:var(--blush);line-height:1;font-weight:300;
+}
+.testi-stars{color:var(--rose);font-size:0.85rem;letter-spacing:2px;margin-bottom:16px;}
+.testi-text{color:var(--text-mid);font-size:0.9rem;line-height:1.8;font-weight:300;margin-bottom:24px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--petal);border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;
+}
+.testi-name{font-weight:600;font-size:0.88rem;color:var(--text-dark);}
+.testi-loc{font-size:0.75rem;color:var(--text-light);}
+
+/* ═══════════════════════════════════════════════
+   NEWSLETTER
+═══════════════════════════════════════════════ */
+.newsletter{
+  margin:0 80px 90px;
+  background:var(--text-dark);
+  border-radius:var(--radius-lg);
+  padding:70px 80px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.newsletter::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(249,198,208,0.12),transparent 60%);
+}
+.newsletter-content{position:relative;}
+.newsletter .eyebrow{
+  color:var(--rose);font-size:0.72rem;letter-spacing:3px;
+  text-transform:uppercase;font-weight:600;margin-bottom:16px;
+}
+.newsletter h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;font-weight:300;color:white;
+  margin-bottom:14px;line-height:1.2;
+}
+.newsletter h2 em{font-style:italic;color:var(--sakura);}
+.newsletter p{color:rgba(255,255,255,0.6);font-size:0.9rem;margin-bottom:36px;font-weight:300;}
+.newsletter-form{display:flex;gap:0;max-width:460px;margin:0 auto;}
+.newsletter-input{
+  flex:1;background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);border-right:none;
+  border-radius:999px 0 0 999px;
+  padding:14px 24px;color:white;font-family:'DM Sans',sans-serif;
+  font-size:0.9rem;
+}
+.newsletter-input::placeholder{color:rgba(255,255,255,0.4);}
+.newsletter-input:focus{outline:none;border-color:var(--rose);}
+.newsletter-btn{
+  background:var(--rose);color:white;border:none;
+  border-radius:0 999px 999px 0;
+  padding:14px 28px;font-size:0.8rem;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  transition:var(--transition);font-family:'DM Sans',sans-serif;
+}
+.newsletter-btn:hover{background:var(--deep-rose);}
+
+/* ═══════════════════════════════════════════════
+   CATALOG PAGE
+═══════════════════════════════════════════════ */
+.catalog-hero{
+  padding:120px 80px 60px;
+  background:linear-gradient(160deg,var(--petal) 0%,var(--cream) 60%);
+  border-bottom:1px solid var(--border);
+  text-align:center;
+}
+.catalog-hero--photo{
+  background-image:
+    linear-gradient(160deg,rgba(255,245,248,0.94) 0%,rgba(255,250,252,0.9) 60%),
+    url('./z7701922487838_bd9821ce81a92d968f76fd1be792dbdc.jpg');
+  background-size:auto,cover;
+  background-position:center,center;
+  background-repeat:no-repeat;
+}
+.catalog-hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4rem;font-weight:300;color:var(--text-dark);margin-bottom:12px;
+}
+.catalog-hero p{color:var(--text-light);font-size:1rem;font-weight:300;}
+.catalog-layout{display:grid;grid-template-columns:260px 1fr;gap:40px;padding:50px 80px;}
+/* Sidebar */
+.sidebar{position:sticky;top:90px;height:fit-content;}
+.sidebar-section{margin-bottom:36px;}
+.sidebar-title{
+  font-size:0.72rem;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:700;color:var(--text-dark);margin-bottom:16px;
+  padding-bottom:10px;border-bottom:1px solid var(--border);
+}
+.filter-check{display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer;font-size:0.88rem;color:var(--text-mid);}
+.filter-check input{width:15px;height:15px;accent-color:var(--deep-rose);cursor:pointer;}
+.filter-check:hover{color:var(--deep-rose);}
+.price-range{display:flex;flex-direction:column;gap:12px;}
+.range-input{
+  width:100%;accent-color:var(--deep-rose);cursor:pointer;
+}
+.range-labels{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--text-light);}
+.color-filter{display:flex;gap:8px;flex-wrap:wrap;}
+.color-f{
+  width:28px;height:28px;border-radius:50%;
+  border:2px solid white;box-shadow:0 0 0 1px var(--border);
+  cursor:pointer;transition:var(--transition);
+}
+.color-f.active,.color-f:hover{box-shadow:0 0 0 2.5px var(--rose);}
+.size-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.size-btn{
+  padding:8px 14px;border:1px solid var(--border);border-radius:8px;
+  font-size:0.8rem;font-weight:600;cursor:pointer;transition:var(--transition);
+  background:white;color:var(--text-mid);font-family:'DM Sans',sans-serif;
+}
+.size-btn.active,.size-btn:hover{border-color:var(--rose);color:var(--deep-rose);background:var(--petal);}
+
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.result-count{font-size:0.88rem;color:var(--text-light);}
+.sort-select{
+  background:white;border:1px solid var(--border);
+  border-radius:999px;padding:10px 20px;
+  color:var(--text-mid);font-family:'DM Sans',sans-serif;
+  font-size:0.83rem;cursor:pointer;
+}
+.filter-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.filter-tag{
+  background:var(--petal);color:var(--deep-rose);
+  border:1px solid var(--blush);border-radius:999px;
+  padding:6px 16px 6px 14px;font-size:0.78rem;font-weight:600;
+  cursor:pointer;transition:var(--transition);letter-spacing:0.5px;
+}
+.filter-tag:hover{background:var(--blush);}
+.filter-tag::after{content:' ×';opacity:0.7;}
+
+/* ═══════════════════════════════════════════════
+   PRODUCT DETAIL
+═══════════════════════════════════════════════ */
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text-light);font-size:0.8rem;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  padding:90px 80px 0;background:none;border:none;
+  font-family:'DM Sans',sans-serif;transition:var(--transition);
+}
+.back-btn:hover{color:var(--deep-rose);}
+.detail-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;padding:40px 80px 80px;
+}
+.detail-gallery{position:sticky;top:90px;}
+.gallery-main{
+  width:100%;aspect-ratio:3/4;
+  background:linear-gradient(160deg,var(--petal),var(--soft-pink));
+  border-radius:var(--radius-lg);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;overflow:hidden;border:1px solid var(--border);
+}
+.gallery-main img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  background:#fff;
+}
+.gallery-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.g-thumb{
+  aspect-ratio:3/4;border-radius:10px;
+  background:linear-gradient(160deg,var(--soft-pink),var(--petal));
+  border:2px solid var(--border);cursor:pointer;
+  transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;color:var(--text-light);
+}
+.g-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.g-thumb.active,.g-thumb:hover{border-color:var(--rose);}
+
+.detail-info{padding:20px 0;}
+.detail-brand{
+  font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--text-light);margin-bottom:10px;
+}
+.detail-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem;font-weight:300;line-height:1.15;
+  color:var(--text-dark);margin-bottom:16px;
+}
+.detail-rating{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.detail-price-row{display:flex;align-items:baseline;gap:14px;margin-bottom:28px;}
+.detail-price{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--deep-rose);}
+.detail-old-price{font-size:1.1rem;color:var(--text-light);text-decoration:line-through;}
+.save-tag{
+  background:var(--petal);color:var(--deep-rose);
+  border-radius:999px;padding:4px 12px;
+  font-size:0.75rem;font-weight:700;
+}
+.option-label{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--text-dark);margin-bottom:12px;}
+.size-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.size-opt{
+  min-width:48px;height:48px;border-radius:10px;
+  border:1.5px solid var(--border);background:white;
+  color:var(--text-mid);font-size:0.85rem;font-weight:600;
+  cursor:pointer;transition:var(--transition);
+  font-family:'DM Sans',sans-serif;padding:0 12px;
+}
+.size-opt.active,.size-opt:hover{border-color:var(--rose);color:var(--deep-rose);background:var(--petal);}
+.size-opt.unavailable{opacity:0.35;cursor:not-allowed;text-decoration:line-through;}
+.color-row{display:flex;gap:10px;margin-bottom:28px;}
+.color-opt{
+  width:36px;height:36px;border-radius:50%;
+  border:3px solid white;box-shadow:0 0 0 1.5px var(--border);
+  cursor:pointer;transition:var(--transition);
+}
+.color-opt.active,.color-opt:hover{box-shadow:0 0 0 2.5px var(--rose);}
+.qty-row-d{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.qty-ctrl{
+  display:inline-flex;align-items:center;
+  border:1.5px solid var(--border);border-radius:12px;overflow:hidden;
+}
+.qty-btn{
+  width:44px;height:44px;border:none;background:white;
+  font-size:1.1rem;cursor:pointer;transition:var(--transition);
+  color:var(--text-mid);font-family:'DM Sans',sans-serif;
+}
+.qty-btn:hover{background:var(--petal);color:var(--deep-rose);}
+.qty-val{
+  width:52px;height:44px;border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);
+  text-align:center;font-weight:700;font-size:1rem;background:white;
+  color:var(--text-dark);font-family:'DM Sans',sans-serif;
+}
+.detail-btns{display:flex;gap:12px;margin-bottom:28px;}
+.btn-add-cart-d{
+  flex:1;background:white;color:var(--text-dark);
+  border:1.5px solid var(--text-dark);border-radius:999px;
+  padding:15px;font-size:0.83rem;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  transition:var(--transition);font-family:'DM Sans',sans-serif;
+}
+.btn-add-cart-d:hover{border-color:var(--rose);color:var(--deep-rose);}
+.btn-buy-now{
+  flex:1.6;background:var(--text-dark);color:white;
+  border:none;border-radius:999px;padding:15px;
+  font-size:0.83rem;font-weight:600;letter-spacing:1px;
+  text-transform:uppercase;cursor:pointer;transition:var(--transition);
+  font-family:'DM Sans',sans-serif;
+}
+.btn-buy-now:hover{background:var(--deep-rose);}
+.detail-features{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.feat-pill{
+  display:flex;align-items:center;gap:8px;
+  background:var(--petal);border-radius:999px;
+  padding:9px 16px;font-size:0.78rem;font-weight:600;color:var(--text-mid);
+}
+.detail-tabs{border-bottom:1px solid var(--border);display:flex;gap:0;margin-bottom:24px;}
+.dtab{
+  padding:12px 24px;font-size:0.8rem;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;color:var(--text-light);
+  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:var(--transition);
+}
+.dtab.active{color:var(--deep-rose);border-color:var(--deep-rose);}
+.dtab-content{display:none;color:var(--text-mid);font-size:0.9rem;line-height:1.9;font-weight:300;}
+.dtab-content.active{display:block;}
+.dtab-content ul{padding-left:20px;}
+.dtab-content li{margin-bottom:8px;}
+
+/* ═══════════════════════════════════════════════
+   CART
+═══════════════════════════════════════════════ */
+.cart-page-inner{
+  padding:110px 80px 80px;
+  display:grid;grid-template-columns:1fr 380px;gap:48px;
+}
+.cart-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;font-weight:300;margin-bottom:40px;color:var(--text-dark);
+}
+.cart-title em{font-style:italic;color:var(--deep-rose);}
+.cart-items{display:flex;flex-direction:column;gap:20px;}
+.cart-item{
+  display:flex;gap:20px;align-items:center;
+  background:white;border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;
+  transition:var(--transition);
+}
+.cart-item:hover{border-color:var(--blush);}
+.ci-img{
+  width:100px;height:130px;border-radius:12px;flex-shrink:0;
+  background:linear-gradient(160deg,var(--petal),var(--soft-pink));
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;color:var(--text-light);overflow:hidden;
+}
+.ci-info{flex:1;}
+.ci-name{font-weight:600;font-size:0.95rem;color:var(--text-dark);margin-bottom:4px;}
+.ci-meta{font-size:0.8rem;color:var(--text-light);margin-bottom:16px;}
+.ci-bottom{display:flex;align-items:center;justify-content:space-between;}
+.ci-price{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--deep-rose);}
+.ci-remove{background:none;border:none;color:var(--text-light);cursor:pointer;font-size:1rem;transition:var(--transition);}
+.ci-remove:hover{color:var(--deep-rose);}
+
+.cart-summary{
+  background:white;border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:36px;
+  position:sticky;top:90px;height:fit-content;
+}
+.cs-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;font-weight:300;margin-bottom:28px;
+  color:var(--text-dark);border-bottom:1px solid var(--border);
+  padding-bottom:20px;
+}
+.cs-row{display:flex;justify-content:space-between;margin-bottom:14px;font-size:0.9rem;}
+.cs-row.total{
+  font-weight:700;font-size:1.1rem;
+  padding-top:16px;border-top:1px solid var(--border);margin-top:8px;
+}
+.cs-row.total .price{color:var(--deep-rose);font-family:'Cormorant Garamond',serif;font-size:1.5rem;}
+.coupon-section{margin:20px 0;}
+.coupon-input{
+  width:100%;background:var(--cream);border:1px solid var(--border);
+  border-radius:999px;padding:12px 20px;
+  color:var(--text-dark);font-family:'DM Sans',sans-serif;font-size:0.88rem;
+  transition:var(--transition);margin-bottom:10px;
+}
+.coupon-input:focus{outline:none;border-color:var(--rose);}
+.coupon-input::placeholder{color:var(--text-light);}
+.btn-coupon{
+  width:100%;background:white;border:1.5px solid var(--border);
+  border-radius:999px;padding:11px;font-size:0.8rem;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  transition:var(--transition);font-family:'DM Sans',sans-serif;color:var(--text-mid);
+}
+.btn-coupon:hover{border-color:var(--rose);color:var(--deep-rose);}
+.btn-checkout-main{
+  width:100%;background:var(--text-dark);color:white;
+  border:none;border-radius:999px;padding:17px;
+  font-size:0.85rem;font-weight:600;letter-spacing:1.5px;
+  text-transform:uppercase;cursor:pointer;
+  transition:var(--transition);font-family:'DM Sans',sans-serif;
+  margin-top:20px;
+}
+.btn-checkout-main:hover{background:var(--deep-rose);}
+.pay-methods{display:flex;justify-content:center;gap:10px;margin-top:18px;flex-wrap:wrap;}
+.pay-chip{
+  background:var(--cream);border:1px solid var(--border);
+  border-radius:6px;padding:5px 12px;font-size:0.7rem;
+  font-weight:700;color:var(--text-light);letter-spacing:0.5px;
+}
+.empty-cart-box{
+  grid-column:1/-1;text-align:center;padding:100px 20px;
+}
+.empty-cart-box .ec-icon{font-size:5rem;margin-bottom:24px;opacity:0.4;}
+.empty-cart-box h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:12px;color:var(--text-dark);}
+.empty-cart-box p{color:var(--text-light);margin-bottom:32px;font-weight:300;}
+
+/* ═══════════════════════════════════════════════
+   AUTH
+═══════════════════════════════════════════════ */
+.auth-page{
+  min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
+  padding-top:72px;
+}
+.auth-visual{
+  background:linear-gradient(160deg,var(--soft-pink),var(--petal),var(--blush));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px;position:relative;overflow:hidden;
+}
+.auth-visual::before{
+  content:'✿';position:absolute;font-size:400px;
+  color:rgba(255,183,197,0.15);right:-80px;top:-60px;line-height:1;
+}
+.auth-visual-content{position:relative;text-align:center;}
+.auth-logo-big{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4rem;font-weight:300;letter-spacing:10px;
+  color:var(--text-dark);margin-bottom:20px;
+}
+.auth-visual p{color:var(--text-mid);font-size:0.95rem;line-height:1.8;font-weight:300;max-width:340px;}
+.auth-visual-img{
+  width:260px;height:320px;
+  background:rgba(255,255,255,0.5);border-radius:var(--radius-lg);
+  border:1px dashed var(--border-dark);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:12px;color:var(--text-light);
+  font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;
+  margin:32px auto;
+}
+.auth-form-side{
+  display:flex;align-items:center;justify-content:center;
+  padding:60px;background:white;
+}
+.auth-box{width:100%;max-width:420px;}
+.auth-brand{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;font-weight:300;letter-spacing:6px;
+  color:var(--text-dark);margin-bottom:8px;text-transform:uppercase;
+}
+.auth-tagline{color:var(--text-light);font-size:0.82rem;margin-bottom:36px;letter-spacing:0.5px;}
+.auth-tabs-wrap{display:flex;border-bottom:1px solid var(--border);margin-bottom:32px;}
+.auth-tab{
+  flex:1;padding:12px;text-align:center;
+  font-size:0.8rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--text-light);cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--transition);
+}
+.auth-tab.active{color:var(--deep-rose);border-color:var(--deep-rose);}
+.auth-form-c{display:none;}
+.auth-form-c.active{display:block;}
+.form-group{margin-bottom:20px;}
+.form-label{
+  display:block;font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase;
+  font-weight:700;color:var(--text-dark);margin-bottom:8px;
+}
+.form-input{
+  width:100%;background:var(--cream);
+  border:1.5px solid var(--border);border-radius:12px;
+  padding:13px 18px;color:var(--text-dark);
+  font-family:'DM Sans',sans-serif;font-size:0.92rem;
+  transition:var(--transition);
+}
+.form-input:focus{outline:none;border-color:var(--rose);background:white;}
+.form-input::placeholder{color:var(--text-light);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-check-wrap{display:flex;align-items:center;gap:10px;margin:14px 0;font-size:0.85rem;color:var(--text-mid);}
+.form-check-wrap input{width:15px;height:15px;accent-color:var(--deep-rose);}
+.link-rose{color:var(--deep-rose);cursor:pointer;font-weight:600;}
+.btn-auth{
+  width:100%;background:var(--text-dark);color:white;
+  border:none;border-radius:999px;padding:15px;
+  font-size:0.82rem;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;cursor:pointer;transition:var(--transition);
+  font-family:'DM Sans',sans-serif;margin-top:8px;
+}
+.btn-auth:hover{background:var(--deep-rose);}
+.social-divider{display:flex;align-items:center;gap:14px;margin:24px 0;}
+.social-divider::before,.social-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.social-divider span{font-size:0.75rem;color:var(--text-light);font-weight:600;letter-spacing:1px;}
+.social-btns-auth{display:flex;gap:12px;}
+.btn-social{
+  flex:1;background:white;border:1.5px solid var(--border);
+  border-radius:12px;padding:12px;font-size:0.82rem;font-weight:600;
+  cursor:pointer;transition:var(--transition);color:var(--text-mid);
+  font-family:'DM Sans',sans-serif;
+}
+.btn-social:hover{border-color:var(--rose);color:var(--deep-rose);}
+
+/* ═══════════════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════════════ */
+.about-hero{
+  padding:140px 80px 100px;
+  background:linear-gradient(160deg,var(--petal) 0%,var(--cream) 70%);
+  border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.about-hero-text .eyebrow{
+  font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--rose);font-weight:600;margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.about-hero-text .eyebrow::after{content:'';width:24px;height:1px;background:var(--rose);}
+.about-hero-text h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.8rem;font-weight:300;line-height:1.15;
+  color:var(--text-dark);margin-bottom:24px;
+}
+.about-hero-text h1 em{font-style:italic;color:var(--deep-rose);}
+.about-hero-text p{color:var(--text-mid);font-size:1rem;line-height:1.9;font-weight:300;}
+.about-hero-img{
+  aspect-ratio:4/5;
+  border-radius:var(--radius-lg);border:1px solid var(--border);
+  overflow:hidden;
+  position:relative;
+}
+.about-hero-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.about-hero-img .ph-icon{font-size:3.5rem;opacity:0.35;}
+.about-values{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:80px;}
+.val-card{
+  background:white;border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:36px 28px;text-align:center;
+  transition:var(--transition);
+}
+.val-card:hover{border-color:var(--blush);transform:translateY(-6px);box-shadow:var(--shadow-pink);}
+.val-icon{font-size:2.4rem;margin-bottom:18px;}
+.val-title{font-weight:700;font-size:1rem;color:var(--text-dark);margin-bottom:10px;letter-spacing:0.5px;}
+.val-desc{color:var(--text-light);font-size:0.85rem;line-height:1.8;font-weight:300;}
+.team-section{padding:0 80px 80px;}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.team-card{
+  background:white;border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:32px 20px;text-align:center;transition:var(--transition);
+}
+.team-card:hover{border-color:var(--blush);box-shadow:var(--shadow-pink);}
+.team-avatar{
+  width:80px;height:80px;border-radius:50%;margin:0 auto 18px;
+  background:linear-gradient(135deg,var(--petal),var(--blush));
+  border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:2.2rem;
+}
+.team-name{font-weight:700;font-size:0.95rem;color:var(--text-dark);margin-bottom:4px;}
+.team-role{font-size:0.78rem;color:var(--rose);font-weight:600;letter-spacing:0.5px;}
+
+/* ═══════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════ */
+.contact-page{padding:110px 80px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+.contact-info h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.2rem;font-weight:300;margin-bottom:18px;color:var(--text-dark);
+}
+.contact-info h2 em{font-style:italic;color:var(--deep-rose);}
+.contact-info p{color:var(--text-mid);line-height:1.9;margin-bottom:44px;font-weight:300;}
+.contact-cards{display:flex;flex-direction:column;gap:16px;}
+.contact-card{
+  background:white;border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px 24px;display:flex;gap:18px;align-items:center;transition:var(--transition);
+}
+.contact-card:hover{border-color:var(--blush);box-shadow:var(--shadow-pink);}
+.cc-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:var(--petal);display:flex;align-items:center;
+  justify-content:center;font-size:1.4rem;flex-shrink:0;
+}
+.cc-title{font-weight:700;font-size:0.85rem;color:var(--text-dark);margin-bottom:4px;}
+.cc-val{font-size:0.83rem;color:var(--text-mid);font-weight:300;}
+.social-row{display:flex;gap:10px;margin-top:32px;}
+.social-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:white;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;cursor:pointer;transition:var(--transition);
+}
+.social-icon:hover{border-color:var(--rose);background:var(--petal);}
+.contact-form-box{
+  background:white;border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:48px;
+}
+.contact-form-box h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:300;margin-bottom:32px;color:var(--text-dark);
+}
+.form-select{
+  width:100%;background:var(--cream);border:1.5px solid var(--border);
+  border-radius:12px;padding:13px 18px;
+  color:var(--text-mid);font-family:'DM Sans',sans-serif;font-size:0.9rem;cursor:pointer;
+}
+.form-select:focus{outline:none;border-color:var(--rose);}
+.form-textarea{
+  width:100%;background:var(--cream);border:1.5px solid var(--border);
+  border-radius:12px;padding:14px 18px;color:var(--text-dark);
+  font-family:'DM Sans',sans-serif;font-size:0.9rem;
+  resize:vertical;min-height:140px;transition:var(--transition);
+}
+.form-textarea:focus{outline:none;border-color:var(--rose);}
+.form-textarea::placeholder{color:var(--text-light);}
+
+/* ═══════════════════════════════════════════════
+   POLICY
+═══════════════════════════════════════════════ */
+.policy-page{padding:110px 80px 80px;display:grid;grid-template-columns:240px 1fr;gap:60px;}
+.policy-nav{position:sticky;top:90px;height:fit-content;}
+.policy-nav-title{
+  font-size:0.7rem;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:700;color:var(--text-dark);margin-bottom:20px;
+}
+.policy-nav-item{
+  display:block;padding:10px 16px;border-radius:10px;
+  font-size:0.85rem;color:var(--text-mid);cursor:pointer;font-weight:500;
+  transition:var(--transition);margin-bottom:4px;border-left:2px solid transparent;
+}
+.policy-nav-item.active,.policy-nav-item:hover{
+  background:var(--petal);color:var(--deep-rose);border-left-color:var(--rose);
+}
+.policy-content-area{background:white;border:1px solid var(--border);border-radius:var(--radius-lg);padding:48px;}
+.policy-panel{display:none;}
+.policy-panel.active{display:block;}
+.policy-panel h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.6rem;font-weight:300;color:var(--text-dark);
+  margin-bottom:8px;
+}
+.policy-panel .updated{font-size:0.78rem;color:var(--text-light);margin-bottom:32px;letter-spacing:0.5px;}
+.policy-panel h3{font-weight:700;font-size:1rem;color:var(--text-dark);margin:28px 0 12px;letter-spacing:0.5px;}
+.policy-panel p,.policy-panel li{color:var(--text-mid);line-height:1.9;font-size:0.9rem;margin-bottom:12px;font-weight:300;}
+.policy-panel ul{padding-left:20px;}
+.policy-panel li{margin-bottom:8px;}
+.policy-highlight{
+  background:var(--petal);border:1px solid var(--blush);
+  border-radius:12px;padding:20px 24px;margin:20px 0;
+}
+.policy-highlight p{margin:0;color:var(--deep-rose);font-weight:500;}
+
+/* ═══════════════════════════════════════════════
+   CHECKOUT MODAL
+═══════════════════════════════════════════════ */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(42,31,36,0.5);backdrop-filter:blur(8px);
+  z-index:2000;align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  background:white;border-radius:var(--radius-lg);
+  padding:48px;max-width:540px;width:100%;
+  position:relative;max-height:90vh;overflow-y:auto;
+  border:1px solid var(--border);
+  animation:fadeUp .3s ease;
+  box-shadow:0 32px 80px rgba(42,31,36,0.2);
+}
+.modal-close{
+  position:absolute;top:20px;right:20px;
+  background:var(--cream);border:1px solid var(--border);
+  border-radius:50%;width:34px;height:34px;cursor:pointer;
+  font-size:1rem;color:var(--text-light);transition:var(--transition);
+}
+.modal-close:hover{color:var(--deep-rose);border-color:var(--rose);}
+.modal-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:300;color:var(--text-dark);
+  margin-bottom:28px;
+}
+.checkout-progress{display:flex;align-items:center;margin-bottom:32px;}
+.ck-step{
+  display:flex;align-items:center;gap:8px;
+  font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;
+  color:var(--text-light);
+}
+.ck-step.active{color:var(--deep-rose);}
+.ck-step.done{color:var(--rose);}
+.ck-dot{width:24px;height:24px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:0.7rem;}
+.ck-line{flex:1;height:1px;background:var(--border);margin:0 8px;}
+.pay-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.pay-opt{
+  background:var(--cream);border:2px solid var(--border);
+  border-radius:12px;padding:16px;text-align:center;
+  cursor:pointer;transition:var(--transition);
+}
+.pay-opt.active,.pay-opt:hover{border-color:var(--rose);background:var(--petal);}
+.pay-opt .p-icon{font-size:1.6rem;margin-bottom:6px;}
+.pay-opt .p-name{font-size:0.78rem;font-weight:700;color:var(--text-mid);}
+.order-done{text-align:center;padding:20px 0;display:none;}
+.order-done .done-icon{font-size:4.5rem;margin-bottom:20px;}
+.order-done h3{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;margin-bottom:12px;color:var(--text-dark);}
+.order-done p{color:var(--text-light);font-size:0.9rem;line-height:1.8;font-weight:300;}
+.order-code{color:var(--deep-rose);font-weight:700;font-size:1.1rem;}
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+footer{
+  background:var(--text-dark);color:rgba(255,255,255,0.8);
+  padding:80px 80px 36px;
+  position:relative;overflow:hidden;
+}
+footer::before{
+  content:'ELERA';position:absolute;bottom:-40px;right:-20px;
+  font-family:'Cormorant Garamond',serif;font-size:200px;font-weight:600;
+  letter-spacing:10px;color:rgba(255,255,255,0.025);line-height:1;
+  pointer-events:none;
+}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+.footer-brand .logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:300;letter-spacing:8px;
+  color:white;margin-bottom:18px;text-transform:uppercase;
+}
+.footer-brand p{font-size:0.88rem;line-height:1.9;font-weight:300;margin-bottom:28px;}
+.footer-social{display:flex;gap:10px;}
+.f-social{
+  width:40px;height:40px;border-radius:10px;
+  border:1px solid rgba(255,255,255,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;cursor:pointer;transition:var(--transition);
+}
+.f-social:hover{border-color:var(--rose);background:rgba(232,132,154,0.15);}
+.footer-col h4{
+  color:white;font-size:0.72rem;letter-spacing:2.5px;
+  text-transform:uppercase;font-weight:700;margin-bottom:20px;
+}
+.footer-col ul{list-style:none;}
+.footer-col li{margin-bottom:12px;}
+.footer-col a{
+  color:rgba(255,255,255,0.55);font-size:0.87rem;
+  text-decoration:none;cursor:pointer;transition:var(--transition);font-weight:300;
+}
+.footer-col a:hover{color:var(--sakura);}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.1);
+  padding-top:28px;display:flex;justify-content:space-between;align-items:center;
+}
+.footer-bottom p{font-size:0.8rem;font-weight:300;color:rgba(255,255,255,0.4);}
+.footer-pays{display:flex;gap:8px;}
+.f-pay{
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+  border-radius:6px;padding:4px 12px;font-size:0.7rem;color:rgba(255,255,255,0.4);font-weight:600;
+}
+
+/* ═══════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════ */
+.toast-wrap{position:fixed;bottom:28px;right:28px;z-index:3000;display:flex;flex-direction:column;gap:10px;}
+.toast{
+  background:white;border:1px solid var(--border);
+  border-radius:14px;padding:14px 20px;
+  display:flex;align-items:center;gap:12px;
+  min-width:290px;box-shadow:var(--shadow-soft);
+  animation:slideIn .3s ease;font-size:0.88rem;font-weight:600;
+  color:var(--text-dark);
+}
+.toast.success{border-left:4px solid var(--rose);}
+.toast.error{border-left:4px solid #e05252;}
+.toast .t-icon{font-size:1.2rem;}
+
+/* ═══════════════════════════════════════════════
+   WISHLIST indicator
+═══════════════════════════════════════════════ */
+.wishlist-count{display:none;}
+.wishlist-count.has-items{display:flex;}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeLeft{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideIn{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+@keyframes floatBadge{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes floatPetal{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-14px) rotate(15deg);}}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE (basic)
+═══════════════════════════════════════════════ */
+@media(max-width:1024px){
+  .nav-inner{padding:0 24px;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .section{padding:60px 24px;}
+  .catalog-layout{grid-template-columns:1fr;padding:30px 24px;}
+  .sidebar{display:none;}
+  .detail-grid{grid-template-columns:1fr;padding:30px 24px;}
+  .cart-page-inner{grid-template-columns:1fr;padding:30px 24px;}
+  .contact-page{grid-template-columns:1fr;padding:100px 24px 60px;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .featured-banner{margin:0 24px;grid-template-columns:1fr;padding:48px 36px;}
+  .newsletter{margin:0 24px 60px;padding:48px 36px;}
+  .about-hero{grid-template-columns:1fr;padding:100px 24px 60px;}
+  .about-values{padding:40px 24px;grid-template-columns:1fr 1fr;}
+  .team-section{padding:0 24px 60px;}
+  .team-grid{grid-template-columns:1fr 1fr;}
+  .policy-page{grid-template-columns:1fr;padding:100px 24px 60px;}
+  .auth-page{grid-template-columns:1fr;}
+  .auth-visual{display:none;}
+  .lookbook-grid{grid-template-columns:1fr 1fr;}
+  .look-item.tall{grid-row:span 1;}
+  .cat-grid{grid-template-columns:repeat(3,1fr);}
+  .testimonial-grid{grid-template-columns:1fr;}
+  .about-values{grid-template-columns:1fr 1fr;}
+  footer{padding:60px 24px 30px;}
+  .catalog-hero{padding:100px 24px 48px;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  ✿ Miễn phí vận chuyển cho đơn từ 500K &nbsp;|&nbsp; Đổi trả trong 30 ngày &nbsp;|&nbsp; Chính hãng 100%
+</div>
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">ELERA</div>
+    <ul class="nav-links">
+      <li><a id="nav-home" class="active" onclick="showPage('home')">Trang Chủ</a></li>
+      <li><a id="nav-catalog" onclick="showPage('catalog')">Bộ Sưu Tập</a></li>
+      <li><a id="nav-about" onclick="showPage('about')">Về ELERA</a></li>
+      <li><a id="nav-contact" onclick="showPage('contact')">Liên Hệ</a></li>
+      <li><a id="nav-policy" onclick="showPage('policy')">Chính Sách</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-icon-btn" title="Yêu thích" onclick="showPage('catalog')">
+        <span>♡</span>
+      </button>
+      <button class="nav-icon-btn" title="Giỏ hàng" onclick="showPage('cart')">
+        <span>🛍</span>
+        <span class="badge" id="cartBadge">0</span>
+      </button>
+      <button class="btn-nav-login" onclick="showPage('auth')">Đăng Nhập</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Bộ sưu tập Xuân Hè 2025</div>
+      <h1>Vẻ Đẹp<br>Dịu Dàng<br>& <em>Tinh Tế</em></h1>
+      <p class="hero-sub">Thời trang nữ cao cấp, được thiết kế cho những người phụ nữ yêu cái đẹp và trân trọng chất lượng. Mỗi bộ trang phục là một câu chuyện riêng.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('catalog')">Khám Phá Ngay</button>
+        <button class="btn-outline-dark" onclick="showPage('about')">Về Chúng Tôi</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">800+</div><div class="stat-lbl">Thiết kế</div></div>
+        <div class="stat"><div class="stat-num">25K+</div><div class="stat-lbl">Khách hàng</div></div>
+        <div class="stat"><div class="stat-num">4.9 ✿</div><div class="stat-lbl">Đánh giá</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-wrap">
+        <span class="petal-deco">🌸</span>
+        <span class="petal-deco">🌸</span>
+        <span class="petal-deco">🌸</span>
+        <img class="hero-main-img" id="heroMainImg" src="" alt="ELERA — Bộ sưu tập Xuân Hè 2025">
+        <div class="hero-float-badge">
+          <div class="lbl">Giảm giá đặc biệt</div>
+          <div class="val">Đến −40%</div>
+        </div>
+        <div class="hero-tag-top">✿ New Arrivals</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIBBON -->
+  <div class="ribbon">
+    <div class="ribbon-inner">
+      <span class="ribbon-item">Thời trang cao cấp</span>
+      <span class="ribbon-item">Hàng chính hãng</span>
+      <span class="ribbon-item">Thiết kế độc quyền</span>
+      <span class="ribbon-item">Miễn phí giao hàng</span>
+      <span class="ribbon-item">Đổi trả 30 ngày</span>
+      <span class="ribbon-item">Chất liệu cao cấp</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ribbon-item">Thời trang cao cấp</span>
+      <span class="ribbon-item">Hàng chính hãng</span>
+      <span class="ribbon-item">Thiết kế độc quyền</span>
+      <span class="ribbon-item">Miễn phí giao hàng</span>
+      <span class="ribbon-item">Đổi trả 30 ngày</span>
+      <span class="ribbon-item">Chất liệu cao cấp</span>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Khám Phá</div>
+        <div class="section-title">Danh Mục <em>Nổi Bật</em></div>
+      </div>
+      <a class="link-all" onclick="showPage('catalog')">Xem tất cả →</a>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="filterAndGo('Đầm')">
+        <div class="cat-icon">👗</div>
+        <div class="cat-name">Váy & Đầm</div>
+        <div class="cat-count">180+ thiết kế</div>
+      </div>
+      <div class="cat-card" onclick="filterAndGo('Áo')">
+        <div class="cat-icon">👚</div>
+        <div class="cat-name">Áo Nữ</div>
+        <div class="cat-count">220+ thiết kế</div>
+      </div>
+      <div class="cat-card" onclick="filterAndGo('Quần')">
+        <div class="cat-icon">👖</div>
+        <div class="cat-name">Quần Nữ</div>
+        <div class="cat-count">150+ thiết kế</div>
+      </div>
+      <div class="cat-card" onclick="filterAndGo('Set')">
+        <div class="cat-icon">✨</div>
+        <div class="cat-name">Set Đồ</div>
+        <div class="cat-count">95+ thiết kế</div>
+      </div>
+      <div class="cat-card" onclick="filterAndGo('Áo khoác')">
+        <div class="cat-icon">🧥</div>
+        <div class="cat-name">Áo Khoác</div>
+        <div class="cat-count">80+ thiết kế</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW ARRIVALS -->
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Mới Nhất</div>
+        <div class="section-title">Hàng <em>Vừa Về</em></div>
+      </div>
+      <a class="link-all" onclick="showPage('catalog')">Xem tất cả →</a>
+    </div>
+    <div class="product-grid" id="homeNewGrid"></div>
+  </section>
+
+  <!-- FEATURED BANNER -->
+  <div class="featured-banner">
+    <div class="featured-content">
+      <div class="eyebrow">✿ Bộ Sưu Tập Đặc Biệt</div>
+      <h2>Hoa Anh Đào<br><em>Mùa Xuân 2025</em></h2>
+      <p>Lấy cảm hứng từ vẻ đẹp tinh tế của hoa anh đào Nhật Bản, bộ sưu tập mang đến những gam màu pastel nhẹ nhàng, họa tiết thêu tinh xảo và chất liệu cao cấp cho người phụ nữ hiện đại.</p>
+      <button class="btn-primary" onclick="filterAndGo('Set')">Xem Bộ Sưu Tập</button>
+    </div>
+    <div class="featured-img">
+      <img id="featuredMainImg" src="" alt="Bộ sưu tập Hoa Anh Đào — ELERA">
+    </div>
+  </div>
+
+  <!-- BESTSELLERS -->
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Bán Chạy</div>
+        <div class="section-title">Được <em>Yêu Thích</em></div>
+      </div>
+      <a class="link-all" onclick="showPage('catalog')">Xem tất cả →</a>
+    </div>
+    <div class="product-grid" id="homeBestGrid"></div>
+  </section>
+
+  <!-- LOOKBOOK -->
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Lookbook</div>
+        <div class="section-title"><em>Phong Cách</em> ELERA</div>
+      </div>
+    </div>
+    <div class="lookbook-grid">
+      <div class="look-item tall">
+        <img id="lookImg1" src="" alt="Lookbook Đầm Hoa Nhí Pastel">
+        <div class="look-overlay"><div class="look-name">Đầm Hoa Nhí Pastel</div><div class="look-price">650.000₫</div></div>
+      </div>
+      <div class="look-item">
+        <img id="lookImg2" src="" alt="Lookbook Set Áo Crop">
+        <div class="look-overlay"><div class="look-name">Set Áo Crop + Chân Váy</div><div class="look-price">720.000₫</div></div>
+      </div>
+      <div class="look-item">
+        <img id="lookImg3" src="" alt="Lookbook Áo Khoác Tweed">
+        <div class="look-overlay"><div class="look-name">Áo Khoác Tweed Hồng</div><div class="look-price">980.000₫</div></div>
+      </div>
+      <div class="look-item">
+        <img id="lookImg4" src="" alt="Lookbook Đầm Midi Vintage">
+        <div class="look-overlay"><div class="look-name">Đầm Midi Vintage</div><div class="look-price">590.000₫</div></div>
+      </div>
+      <div class="look-item">
+        <img id="lookImg5" src="" alt="Lookbook Áo Blouse Ren">
+        <div class="look-overlay"><div class="look-name">Áo Blouse Ren Trắng</div><div class="look-price">420.000₫</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" style="background:var(--petal);padding-top:80px;padding-bottom:80px;">
+    <div class="section-header" style="margin-bottom:44px">
+      <div>
+        <div class="section-label">Cảm Nhận</div>
+        <div class="section-title">Khách Hàng <em>Nói Gì?</em></div>
+      </div>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">Chất lượng vượt xa kỳ vọng. Chiếc đầm hoa nhí tôi đặt về đẹp hơn ảnh rất nhiều, đường chỉ may tinh tế, vải mềm mịn. Chắc chắn sẽ quay lại!</div>
+        <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Minh Châu</div><div class="testi-loc">Hà Nội · Mua 8 lần</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">ELERA có phong cách rất riêng, vừa thanh lịch vừa hiện đại. Tôi mua set áo khoác tweed cho buổi họp và được khen ngay. Giao hàng nhanh, đóng gói cực đẹp!</div>
+        <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Hà Linh</div><div class="testi-loc">TP.HCM · Mua 14 lần</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">Dịch vụ chăm sóc khách hàng tuyệt vời. Tôi cần đổi size, shop hỗ trợ ngay trong ngày. Quần áo thì khỏi phải nói, mặc lên là tự tin ngay!</div>
+        <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Bảo Trâm</div><div class="testi-loc">Đà Nẵng · Mua 6 lần</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <div style="padding:80px 0 0">
+    <div class="newsletter">
+      <div class="newsletter-content">
+        <div class="eyebrow">✿ Nhận Ưu Đãi Độc Quyền</div>
+        <h2>Đăng Ký Nhận<br><em>Thông Tin Mới Nhất</em></h2>
+        <p>Nhận ngay voucher giảm 15% cho đơn hàng đầu tiên khi đăng ký email. Cập nhật xu hướng & ưu đãi dành riêng cho thành viên.</p>
+        <form class="newsletter-form" onsubmit="return handleNewsletter(event)">
+          <input class="newsletter-input" type="email" placeholder="Nhập email của bạn..." id="nlEmail">
+          <button class="newsletter-btn" type="submit">Đăng Ký</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: CATALOG
+══════════════════════════════════════════ -->
+<div class="page" id="page-catalog">
+  <div class="catalog-hero catalog-hero--photo">
+    <div class="section-label" style="justify-content:center;margin-bottom:12px">✿ Bộ Sưu Tập</div>
+    <h1>Tất Cả Sản Phẩm</h1>
+    <p>Khám phá hơn 800 thiết kế thời trang nữ cao cấp từ ELERA</p>
+  </div>
+  <div class="catalog-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Danh Mục</div>
+        <div class="filter-check"><input type="checkbox" onchange="applyFilters()" class="cat-filter" value="Đầm"> Váy & Đầm</div>
+        <div class="filter-check"><input type="checkbox" onchange="applyFilters()" class="cat-filter" value="Áo"> Áo Nữ</div>
+        <div class="filter-check"><input type="checkbox" onchange="applyFilters()" class="cat-filter" value="Quần"> Quần Nữ</div>
+        <div class="filter-check"><input type="checkbox" onchange="applyFilters()" class="cat-filter" value="Set"> Set Đồ</div>
+        <div class="filter-check"><input type="checkbox" onchange="applyFilters()" class="cat-filter" value="Áo khoác"> Áo Khoác</div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Khoảng Giá</div>
+        <div class="price-range">
+          <input type="range" class="range-input" min="0" max="2000" value="2000" id="priceRange" oninput="updatePrice(this)">
+          <div class="range-labels"><span>0₫</span><span id="priceLabel">2.000.000₫</span></div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Màu Sắc</div>
+        <div class="color-filter">
+          <div class="color-f" style="background:#fce8ed" title="Hồng nhạt" onclick="toggleColor(this)"></div>
+          <div class="color-f" style="background:#e8849a" title="Hồng đậm" onclick="toggleColor(this)"></div>
+          <div class="color-f" style="background:#ffffff;border:1px solid #ddd" title="Trắng" onclick="toggleColor(this)"></div>
+          <div class="color-f" style="background:#2a1f24" title="Đen" onclick="toggleColor(this)"></div>
+          <div class="color-f" style="background:#c9a96e" title="Be/Gold" onclick="toggleColor(this)"></div>
+          <div class="color-f" style="background:#a8d5e2" title="Xanh nhạt" onclick="toggleColor(this)"></div>
+          <div class="color-f" style="background:#b8d4b0" title="Xanh mint" onclick="toggleColor(this)"></div>
+          <div class="color-f" style="background:#d4a0c0" title="Tím hồng" onclick="toggleColor(this)"></div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Size</div>
+        <div class="size-btns">
+          <button class="size-btn" onclick="toggleSize(this)">XS</button>
+          <button class="size-btn" onclick="toggleSize(this)">S</button>
+          <button class="size-btn" onclick="toggleSize(this)">M</button>
+          <button class="size-btn" onclick="toggleSize(this)">L</button>
+          <button class="size-btn" onclick="toggleSize(this)">XL</button>
+          <button class="size-btn" onclick="toggleSize(this)">XXL</button>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Đánh Giá</div>
+        <div class="filter-check"><input type="checkbox"> ★★★★★ (5 sao)</div>
+        <div class="filter-check"><input type="checkbox"> ★★★★☆ (4+ sao)</div>
+        <div class="filter-check"><input type="checkbox"> ★★★☆☆ (3+ sao)</div>
+      </div>
+      <button class="btn-outline-dark" style="width:100%;padding:12px;margin-top:8px;font-size:0.78rem;" onclick="clearFilters()">Xóa Bộ Lọc</button>
+    </aside>
+    <!-- MAIN -->
+    <div class="catalog-main">
+      <div class="toolbar">
+        <div class="result-count" id="resultCount">Hiển thị 12 sản phẩm</div>
+        <select class="sort-select" onchange="sortCatalog(this.value)">
+          <option value="">Sắp xếp: Nổi bật</option>
+          <option value="price-asc">Giá tăng dần</option>
+          <option value="price-desc">Giá giảm dần</option>
+          <option value="rating">Đánh giá cao nhất</option>
+          <option value="new">Mới nhất</option>
+        </select>
+      </div>
+      <div class="filter-tags" id="filterTagsEl"></div>
+      <div class="product-grid" id="catalogGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: PRODUCT DETAIL
+══════════════════════════════════════════ -->
+<div class="page" id="page-detail">
+  <button class="back-btn" onclick="goBack()">← Quay Lại</button>
+  <div class="detail-grid">
+    <div class="detail-gallery">
+      <div class="gallery-main">
+        <div class="img-placeholder">
+          <span class="ph-big">👗</span>
+          <span>[ Ảnh sản phẩm chính ]</span>
+        </div>
+      </div>
+      <div class="gallery-thumbs">
+        <div class="g-thumb active">📷</div>
+        <div class="g-thumb">📷</div>
+        <div class="g-thumb">📷</div>
+        <div class="g-thumb">📷</div>
+      </div>
+    </div>
+    <div class="detail-info">
+      <div class="detail-brand" id="dBrand">ELERA · Váy & Đầm</div>
+      <div class="detail-name" id="dName">Tên Sản Phẩm</div>
+      <div class="detail-rating">
+        <span style="color:var(--rose);letter-spacing:2px;">★★★★★</span>
+        <span style="font-weight:700;font-size:0.88rem;" id="dRating">4.9</span>
+        <span style="color:var(--text-light);font-size:0.82rem;">(128 đánh giá)</span>
+        <span style="color:var(--text-light);margin-left:8px;font-size:0.82rem;">· 240 đã bán</span>
+      </div>
+      <div class="detail-price-row">
+        <span class="detail-price" id="dPrice">650.000₫</span>
+        <span class="detail-old-price" id="dOldPrice">850.000₫</span>
+        <span class="save-tag" id="dSave">−24%</span>
+      </div>
+      <div class="option-label">Chọn size</div>
+      <div class="size-row">
+        <button class="size-opt active" onclick="selSize(this)">XS</button>
+        <button class="size-opt" onclick="selSize(this)">S</button>
+        <button class="size-opt" onclick="selSize(this)">M</button>
+        <button class="size-opt" onclick="selSize(this)">L</button>
+        <button class="size-opt unavailable" disabled>XL</button>
+        <button class="size-opt unavailable" disabled>XXL</button>
+      </div>
+      <div class="option-label">Màu sắc</div>
+      <div class="color-row">
+        <div class="color-opt active" style="background:#fce8ed" title="Hồng nhạt"></div>
+        <div class="color-opt" style="background:#e8849a" title="Hồng đậm" onclick="selColor(this)"></div>
+        <div class="color-opt" style="background:#fff;border:1px solid #ddd" title="Trắng" onclick="selColor(this)"></div>
+        <div class="color-opt" style="background:#2a1f24" title="Đen" onclick="selColor(this)"></div>
+        <div class="color-opt" style="background:#c9a96e" title="Be" onclick="selColor(this)"></div>
+      </div>
+      <div class="option-label">Số lượng</div>
+      <div class="qty-row-d">
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <input type="text" class="qty-val" value="1" id="dQty" readonly>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+        <span style="font-size:0.82rem;color:var(--text-light)">Còn <strong style="color:var(--deep-rose)">32</strong> sản phẩm</span>
+      </div>
+      <div class="detail-btns">
+        <button class="btn-add-cart-d" onclick="addCurrentToCart()">♡ Thêm Vào Giỏ</button>
+        <button class="btn-buy-now" onclick="buyNow()">Mua Ngay →</button>
+      </div>
+      <div class="detail-features">
+        <div class="feat-pill">🛡️ Bảo hành 30 ngày</div>
+        <div class="feat-pill">🔄 Đổi trả miễn phí</div>
+        <div class="feat-pill">🚚 Ship toàn quốc</div>
+        <div class="feat-pill">✅ Hàng chính hãng</div>
+      </div>
+      <div class="detail-tabs">
+        <div class="dtab active" onclick="switchDetailTab(this,'desc')">Mô Tả</div>
+        <div class="dtab" onclick="switchDetailTab(this,'material')">Chất Liệu</div>
+        <div class="dtab" onclick="switchDetailTab(this,'size')">Bảng Size</div>
+      </div>
+      <div class="dtab-content active" id="dtab-desc" id="dDesc">
+        <p id="dDescText">Thiết kế tinh tế lấy cảm hứng từ vẻ đẹp của hoa anh đào, sử dụng chất liệu cao cấp mang lại cảm giác mềm mại và thoải mái suốt cả ngày dài.</p>
+        <ul id="dFeaturesList">
+          <li>Phù hợp đi làm, dự tiệc, dạo phố</li>
+          <li>Không nhăn, không xù lông sau khi giặt</li>
+          <li>Form dáng tôn vóc dáng người mặc</li>
+          <li>Có lót trong, thiết kế kín đáo thanh lịch</li>
+        </ul>
+      </div>
+      <div class="dtab-content" id="dtab-material">
+        <p><strong>Chất liệu ngoài:</strong> 80% Polyester, 20% Spandex — mềm mại, co giãn nhẹ, không nhăn.</p>
+        <p><strong>Lớp lót:</strong> 100% Cotton — thoáng mát, thấm hút tốt.</p>
+        <p><strong>Hướng dẫn giặt:</strong></p>
+        <ul>
+          <li>Giặt tay hoặc máy ở chế độ nhẹ, nhiệt độ ≤ 30°C</li>
+          <li>Không sử dụng chất tẩy mạnh</li>
+          <li>Phơi trong bóng râm, tránh ánh nắng trực tiếp</li>
+          <li>Là ở nhiệt độ thấp mặt trái vải</li>
+        </ul>
+      </div>
+      <div class="dtab-content" id="dtab-size">
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+          <tr style="background:var(--petal)">
+            <th style="padding:10px;text-align:left;border:1px solid var(--border)">Size</th>
+            <th style="padding:10px;text-align:center;border:1px solid var(--border)">Ngực (cm)</th>
+            <th style="padding:10px;text-align:center;border:1px solid var(--border)">Eo (cm)</th>
+            <th style="padding:10px;text-align:center;border:1px solid var(--border)">Hông (cm)</th>
+          </tr>
+          <tr><td style="padding:10px;border:1px solid var(--border)">XS</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">78–82</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">60–64</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">84–88</td></tr>
+          <tr style="background:var(--cream)"><td style="padding:10px;border:1px solid var(--border)">S</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">82–86</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">64–68</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">88–92</td></tr>
+          <tr><td style="padding:10px;border:1px solid var(--border)">M</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">86–90</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">68–72</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">92–96</td></tr>
+          <tr style="background:var(--cream)"><td style="padding:10px;border:1px solid var(--border)">L</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">90–94</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">72–76</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">96–100</td></tr>
+          <tr><td style="padding:10px;border:1px solid var(--border)">XL</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">94–98</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">76–80</td><td style="padding:10px;text-align:center;border:1px solid var(--border)">100–104</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: CART
+══════════════════════════════════════════ -->
+<div class="page" id="page-cart">
+  <div id="cartInner"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: AUTH
+══════════════════════════════════════════ -->
+<div class="page" id="page-auth">
+  <div class="auth-page">
+    <div class="auth-visual">
+      <div class="auth-visual-content">
+        <div class="auth-logo-big">ELERA</div>
+        <div class="auth-visual-img">
+          <span style="font-size:3rem;opacity:0.4">🌸</span>
+          <span style="font-size:0.75rem;color:var(--text-light);letter-spacing:1.5px;text-transform:uppercase;">[ Ảnh thương hiệu ]</span>
+        </div>
+        <p>Tham gia cộng đồng 25.000+ phụ nữ yêu thời trang cao cấp, nhận ưu đãi độc quyền và cập nhật xu hướng sớm nhất.</p>
+      </div>
+    </div>
+    <div class="auth-form-side">
+      <div class="auth-box">
+        <div class="auth-brand">ELERA</div>
+        <div class="auth-tagline">Thời trang nữ cao cấp · Phong cách riêng của bạn</div>
+        <div class="auth-tabs-wrap">
+          <div class="auth-tab active" onclick="switchAuth('login')">Đăng Nhập</div>
+          <div class="auth-tab" onclick="switchAuth('register')">Đăng Ký</div>
+        </div>
+        <!-- LOGIN -->
+        <div class="auth-form-c active" id="authLogin">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="ten@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật Khẩu</label>
+            <input type="password" class="form-input" placeholder="••••••••">
+          </div>
+          <div class="form-check-wrap">
+            <input type="checkbox" id="rm"> <label for="rm">Ghi nhớ đăng nhập</label>
+            <span style="margin-left:auto" class="link-rose">Quên mật khẩu?</span>
+          </div>
+          <button class="btn-auth" onclick="showToast('Đăng nhập thành công! Chào mừng bạn đến ELERA ✿','success')">Đăng Nhập</button>
+          <div class="social-divider"><span>hoặc tiếp tục với</span></div>
+          <div class="social-btns-auth">
+            <button class="btn-social">🔵 Google</button>
+            <button class="btn-social">📘 Facebook</button>
+          </div>
+        </div>
+        <!-- REGISTER -->
+        <div class="auth-form-c" id="authRegister">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Họ</label><input class="form-input" placeholder="Nguyễn"></div>
+            <div class="form-group"><label class="form-label">Tên</label><input class="form-input" placeholder="Thị A"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="ten@email.com"></div>
+          <div class="form-group"><label class="form-label">Số Điện Thoại</label><input type="tel" class="form-input" placeholder="0912 345 678"></div>
+          <div class="form-group"><label class="form-label">Mật Khẩu</label><input type="password" class="form-input" placeholder="Ít nhất 8 ký tự"></div>
+          <div class="form-group"><label class="form-label">Xác Nhận Mật Khẩu</label><input type="password" class="form-input" placeholder="Nhập lại mật khẩu"></div>
+          <div class="form-group">
+            <label class="form-label">Ngày Sinh</label>
+            <input type="date" class="form-input">
+          </div>
+          <div class="form-check-wrap">
+            <input type="checkbox" id="agree"> <label for="agree">Tôi đồng ý với <span class="link-rose" onclick="showPage('policy')">Điều khoản</span> & <span class="link-rose" onclick="showPage('policy')">Chính sách bảo mật</span></label>
+          </div>
+          <button class="btn-auth" onclick="showToast('Đăng ký thành công! Chào mừng đến ELERA 🌸','success')">Tạo Tài Khoản</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div class="about-hero-text">
+      <div class="eyebrow">✿ Câu Chuyện Thương Hiệu</div>
+      <h1>Nơi <em>Vẻ Đẹp</em><br>Được Tôn Vinh</h1>
+      <p>ELERA ra đời năm 2019 từ niềm tin rằng mỗi người phụ nữ đều xứng đáng được mặc những bộ trang phục đẹp — không chỉ đẹp về mặt thị giác, mà còn đẹp trong cảm giác khi mặc, trong câu chuyện được gửi gắm qua từng đường chỉ mũi may.</p>
+      <p style="margin-top:16px">Lấy cảm hứng từ sự tinh tế của hoa anh đào — loài hoa tượng trưng cho vẻ đẹp thoảng qua nhưng để lại ấn tượng mãi mãi — ELERA luôn hướng đến những thiết kế vừa hiện đại vừa trường tồn với thời gian.</p>
+    </div>
+    <div class="about-hero-img">
+      <img id="aboutMainImg" src="" alt="ELERA — Thương hiệu thời trang nữ">
+    </div>
+  </div>
+  <div class="about-values">
+    <div class="val-card">
+      <div class="val-icon">✿</div>
+      <div class="val-title">Thiết Kế Tinh Tế</div>
+      <div class="val-desc">Mỗi sản phẩm là tâm huyết của đội ngũ thiết kế được đào tạo tại Paris và Tokyo. Cân nhắc kỹ lưỡng từ form dáng đến từng chi tiết nhỏ nhất.</div>
+    </div>
+    <div class="val-card">
+      <div class="val-icon">💎</div>
+      <div class="val-title">Chất Liệu Cao Cấp</div>
+      <div class="val-desc">Chỉ chọn những chất liệu đạt tiêu chuẩn cao: lụa tự nhiên, cotton Ai Cập, vải tweed Pháp. Đảm bảo thoải mái và bền đẹp theo năm tháng.</div>
+    </div>
+    <div class="val-card">
+      <div class="val-icon">🌿</div>
+      <div class="val-title">Thời Trang Bền Vững</div>
+      <div class="val-desc">Cam kết sản xuất có trách nhiệm: giảm thiểu chất thải, sử dụng thuốc nhuộm an toàn và bao bì có thể tái chế. Đẹp không gây hại cho môi trường.</div>
+    </div>
+    <div class="val-card">
+      <div class="val-icon">❤️</div>
+      <div class="val-title">Khách Hàng Là Trung Tâm</div>
+      <div class="val-desc">Hơn 25.000 khách hàng tin tưởng. Tư vấn chọn size miễn phí, hỗ trợ 7/7 và chính sách đổi trả linh hoạt nhất trong ngành.</div>
+    </div>
+  </div>
+  <!-- Milestones -->
+  <section class="section" style="background:var(--petal);padding:70px 80px;">
+    <div class="section-header" style="margin-bottom:48px">
+      <div><div class="section-label">Hành Trình</div><div class="section-title">Những Dấu <em>Mốc ELERA</em></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;">
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--deep-rose)">2019</div>
+        <div style="font-weight:700;margin:8px 0 6px">Ra Mắt ELERA</div>
+        <div style="color:var(--text-light);font-size:0.85rem;font-weight:300">Bộ sưu tập đầu tiên ra đời với 50 thiết kế</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--deep-rose)">2021</div>
+        <div style="font-weight:700;margin:8px 0 6px">Mở Rộng Toàn Quốc</div>
+        <div style="color:var(--text-light);font-size:0.85rem;font-weight:300">Giao hàng 63 tỉnh, 10.000 khách hàng</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--deep-rose)">2023</div>
+        <div style="font-weight:700;margin:8px 0 6px">Giải Thưởng</div>
+        <div style="color:var(--text-light);font-size:0.85rem;font-weight:300">Top 10 thương hiệu thời trang nữ uy tín</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--deep-rose)">2025</div>
+        <div style="font-weight:700;margin:8px 0 6px">800+ Thiết Kế</div>
+        <div style="color:var(--text-light);font-size:0.85rem;font-weight:300">25.000+ khách hàng yêu thích</div>
+      </div>
+    </div>
+  </section>
+  <div class="team-section" style="padding-top:80px">
+    <div class="section-header" style="margin-bottom:40px">
+      <div><div class="section-label">Con Người</div><div class="section-title">Đội Ngũ <em>ELERA</em></div></div>
+    </div>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-avatar">👩</div><div class="team-name">Linh Phương</div><div class="team-role">CEO & Creative Director</div></div>
+      <div class="team-card"><div class="team-avatar">👩</div><div class="team-name">Minh Anh</div><div class="team-role">Head Designer</div></div>
+      <div class="team-card"><div class="team-avatar">👩</div><div class="team-name">Bảo Châu</div><div class="team-role">Brand & Marketing</div></div>
+      <div class="team-card"><div class="team-avatar">👨</div><div class="team-name">Đức Việt</div><div class="team-role">Operations Director</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="contact-page">
+    <div class="contact-info">
+      <div class="section-label" style="margin-bottom:16px">✿ Liên Hệ</div>
+      <h2>Chúng Tôi<br>Luôn <em>Lắng Nghe</em></h2>
+      <p>Có câu hỏi về sản phẩm, đơn hàng hay muốn hợp tác? Đội ngũ ELERA sẵn sàng hỗ trợ bạn với tất cả sự tận tâm.</p>
+      <div class="contact-cards">
+        <div class="contact-card"><div class="cc-icon">📍</div><div><div class="cc-title">Showroom</div><div class="cc-val">15 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội</div></div></div>
+        <div class="contact-card"><div class="cc-icon">📞</div><div><div class="cc-title">Hotline</div><div class="cc-val">1800 6868 (Miễn phí · 8:00–22:00)</div></div></div>
+        <div class="contact-card"><div class="cc-icon">✉️</div><div><div class="cc-title">Email</div><div class="cc-val">hello@elera.vn</div></div></div>
+        <div class="contact-card"><div class="cc-icon">🕰</div><div><div class="cc-title">Giờ Làm Việc</div><div class="cc-val">T2 – CN: 8:00 – 22:00 (Kể cả lễ)</div></div></div>
+      </div>
+      <div class="social-row">
+        <div class="social-icon" title="Facebook">📘</div>
+        <div class="social-icon" title="Instagram">📸</div>
+        <div class="social-icon" title="TikTok">🎵</div>
+        <div class="social-icon" title="Pinterest">📌</div>
+        <div class="social-icon" title="Zalo">💬</div>
+      </div>
+    </div>
+    <div class="contact-form-box">
+      <h3>Gửi Tin Nhắn <em style="font-family:'Cormorant Garamond',serif;color:var(--deep-rose)">cho ELERA</em></h3>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Họ và Tên</label><input class="form-input" placeholder="Nguyễn Thị A"></div>
+        <div class="form-group"><label class="form-label">Số Điện Thoại</label><input class="form-input" placeholder="0912 345 678"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="email@gmail.com"></div>
+      <div class="form-group"><label class="form-label">Chủ Đề</label>
+        <select class="form-select">
+          <option>Hỏi về sản phẩm</option>
+          <option>Tư vấn chọn size</option>
+          <option>Tra cứu đơn hàng</option>
+          <option>Đổi / Trả hàng</option>
+          <option>Hợp tác kinh doanh</option>
+          <option>Góp ý / Phản hồi</option>
+          <option>Khác</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Nội Dung</label>
+        <textarea class="form-textarea" placeholder="Nhập nội dung tin nhắn của bạn..."></textarea>
+      </div>
+      <div class="form-check-wrap"><input type="checkbox"> <span>Tôi đồng ý để ELERA liên hệ lại qua thông tin đã cung cấp</span></div>
+      <button class="btn-primary" style="width:100%;padding:16px;margin-top:16px" onclick="showToast('Tin nhắn đã gửi! Chúng tôi phản hồi trong vòng 2 giờ 🌸','success')">Gửi Tin Nhắn ✿</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: POLICY
+══════════════════════════════════════════ -->
+<div class="page" id="page-policy">
+  <div class="policy-page">
+    <nav class="policy-nav">
+      <div class="policy-nav-title">Chính Sách</div>
+      <div class="policy-nav-item active" onclick="switchPolicy('privacy',this)">🔒 Bảo Mật</div>
+      <div class="policy-nav-item" onclick="switchPolicy('return',this)">🔄 Đổi Trả</div>
+      <div class="policy-nav-item" onclick="switchPolicy('shipping',this)">🚚 Vận Chuyển</div>
+      <div class="policy-nav-item" onclick="switchPolicy('terms',this)">📋 Điều Khoản</div>
+      <div class="policy-nav-item" onclick="switchPolicy('care',this)">🧺 Chăm Sóc Quần Áo</div>
+    </nav>
+    <div class="policy-content-area">
+      <!-- PRIVACY -->
+      <div class="policy-panel active" id="pol-privacy">
+        <h2>Chính Sách Bảo Mật</h2>
+        <div class="updated">Cập nhật lần cuối: 01/01/2025</div>
+        <div class="policy-highlight"><p>✿ ELERA cam kết bảo vệ thông tin cá nhân của quý khách theo đúng quy định pháp luật Việt Nam và tiêu chuẩn quốc tế.</p></div>
+        <h3>1. Thông Tin Thu Thập</h3>
+        <p>Chúng tôi thu thập thông tin khi bạn đăng ký tài khoản, đặt hàng hoặc liên hệ hỗ trợ:</p>
+        <ul>
+          <li>Họ tên, địa chỉ email, số điện thoại</li>
+          <li>Địa chỉ giao hàng và thông tin thanh toán (mã hóa)</li>
+          <li>Lịch sử mua hàng và sở thích thời trang</li>
+          <li>Thông tin thiết bị và địa chỉ IP (phân tích truy cập)</li>
+        </ul>
+        <h3>2. Mục Đích Sử Dụng</h3>
+        <p>Thông tin được sử dụng để: xử lý đơn hàng, cá nhân hóa trải nghiệm mua sắm, gửi thông báo về ưu đãi (nếu đăng ký) và cải thiện chất lượng dịch vụ. ELERA không bao giờ bán thông tin khách hàng cho bên thứ ba.</p>
+        <h3>3. Bảo Mật Dữ Liệu</h3>
+        <p>Hệ thống được bảo vệ bởi SSL 256-bit. Thông tin thanh toán được mã hóa và không lưu trữ trên máy chủ của ELERA mà qua cổng thanh toán được chứng nhận PCI DSS.</p>
+        <h3>4. Quyền Của Bạn</h3>
+        <p>Bạn có quyền xem, sửa đổi hoặc yêu cầu xóa dữ liệu cá nhân bất kỳ lúc nào. Liên hệ: privacy@elera.vn</p>
+      </div>
+      <!-- RETURN -->
+      <div class="policy-panel" id="pol-return">
+        <h2>Chính Sách Đổi Trả</h2>
+        <div class="updated">Cập nhật lần cuối: 01/01/2025</div>
+        <div class="policy-highlight"><p>✿ ELERA áp dụng đổi trả trong 30 ngày — một trong những chính sách linh hoạt nhất trong ngành thời trang nữ.</p></div>
+        <h3>Điều Kiện Đổi Trả</h3>
+        <ul>
+          <li>Trong vòng 30 ngày kể từ ngày nhận hàng</li>
+          <li>Sản phẩm chưa qua sử dụng, còn nguyên tem nhãn và bao bì gốc</li>
+          <li>Không có dấu hiệu biến dạng, bẩn, mùi lạ hoặc tự sửa chữa</li>
+          <li>Có hóa đơn mua hàng hoặc xác nhận đơn hàng qua email/SMS</li>
+        </ul>
+        <h3>Trường Hợp Đổi Trả Miễn Phí</h3>
+        <ul><li>Sản phẩm bị lỗi sản xuất (đường chỉ, màu sắc sai, kích thước sai so với thông số)</li><li>Giao nhầm sản phẩm so với đơn đặt hàng</li></ul>
+        <h3>Quy Trình Đổi Trả</h3>
+        <p>Liên hệ hotline hoặc email → Cung cấp thông tin đơn hàng và lý do → Gửi sản phẩm về kho → Nhận sản phẩm mới hoặc hoàn tiền trong 3–5 ngày làm việc.</p>
+        <h3>Hoàn Tiền</h3>
+        <p>100% giá trị sản phẩm qua phương thức thanh toán ban đầu trong 5–7 ngày làm việc (tùy ngân hàng).</p>
+      </div>
+      <!-- SHIPPING -->
+      <div class="policy-panel" id="pol-shipping">
+        <h2>Chính Sách Vận Chuyển</h2>
+        <div class="updated">Cập nhật lần cuối: 01/01/2025</div>
+        <h3>Phạm Vi Giao Hàng</h3>
+        <p>ELERA giao hàng toàn quốc 63 tỉnh thành qua đối tác: GHN, GHTK, J&T Express.</p>
+        <h3>Thời Gian & Phí Giao Hàng</h3>
+        <ul>
+          <li><strong>Nội thành Hà Nội & TP.HCM:</strong> 2–4 giờ (hỏa tốc 49.000₫) / 1 ngày (tiêu chuẩn)</li>
+          <li><strong>Tỉnh thành lớn (Đà Nẵng, Hải Phòng…):</strong> 1–2 ngày</li>
+          <li><strong>Tỉnh thành khác:</strong> 2–4 ngày làm việc</li>
+          <li><strong>Vùng sâu vùng xa:</strong> 4–6 ngày làm việc</li>
+        </ul>
+        <div class="policy-highlight"><p>✿ Miễn phí vận chuyển cho đơn hàng từ 500.000₫ (toàn quốc).</p></div>
+        <h3>Đóng Gói</h3>
+        <p>Sản phẩm ELERA được đóng gói trong hộp giấy tái chế sang trọng, bọc giấy lụa và có túi ribbon — xứng đáng làm quà tặng ngay trong lần đầu nhận hàng.</p>
+      </div>
+      <!-- TERMS -->
+      <div class="policy-panel" id="pol-terms">
+        <h2>Điều Khoản Sử Dụng</h2>
+        <div class="updated">Cập nhật lần cuối: 01/01/2025</div>
+        <h3>1. Chấp Nhận Điều Khoản</h3>
+        <p>Khi sử dụng website ELERA, bạn đồng ý tuân thủ các điều khoản và điều kiện này. Chúng tôi có quyền cập nhật điều khoản mà không cần thông báo trước.</p>
+        <h3>2. Tài Khoản Người Dùng</h3>
+        <p>Mỗi khách hàng chỉ được tạo một tài khoản. Bạn chịu trách nhiệm bảo mật thông tin đăng nhập. ELERA có quyền tạm khóa tài khoản vi phạm quy định.</p>
+        <h3>3. Đặt Hàng & Thanh Toán</h3>
+        <p>Đơn hàng chỉ được xác nhận sau khi thanh toán thành công. Giá hiển thị đã bao gồm VAT. ELERA không chịu trách nhiệm về sai sót do thông tin khách hàng cung cấp không chính xác.</p>
+        <h3>4. Sở Hữu Trí Tuệ</h3>
+        <p>Toàn bộ hình ảnh, thiết kế, logo và nội dung trên website thuộc bản quyền của ELERA. Nghiêm cấm sao chép, tái sử dụng dưới mọi hình thức khi chưa có sự đồng ý bằng văn bản.</p>
+        <h3>5. Giải Quyết Tranh Chấp</h3>
+        <p>Mọi tranh chấp sẽ được giải quyết theo pháp luật Việt Nam tại Tòa án nhân dân có thẩm quyền tại Hà Nội.</p>
+      </div>
+      <!-- CARE -->
+      <div class="policy-panel" id="pol-care">
+        <h2>Hướng Dẫn Chăm Sóc Quần Áo</h2>
+        <div class="updated">Cập nhật lần cuối: 01/01/2025</div>
+        <div class="policy-highlight"><p>✿ Quần áo ELERA được làm từ chất liệu cao cấp — chăm sóc đúng cách giúp sản phẩm bền đẹp lâu dài.</p></div>
+        <h3>Giặt Ủi</h3>
+        <ul>
+          <li>Ưu tiên giặt tay với nước mát (≤30°C) để giữ màu sắc và form dáng</li>
+          <li>Nếu dùng máy giặt: chọn chế độ nhẹ (delicate/wool), bỏ túi lưới</li>
+          <li>Lộn mặt trái trước khi giặt để bảo vệ họa tiết và màu thêu</li>
+          <li>Không vò, không vắt xoắn — chỉ nhẹ nhàng ép bỏ nước</li>
+        </ul>
+        <h3>Phơi Sấy</h3>
+        <ul>
+          <li>Phơi trong bóng mát, tránh ánh nắng trực tiếp để tránh bạc màu</li>
+          <li>Mắc phẳng hoặc trải bằng — không phơi gập nhăn</li>
+          <li>Không dùng máy sấy cho các sản phẩm có ren, đính cườm hoặc vải lụa</li>
+        </ul>
+        <h3>Là Ủi</h3>
+        <ul>
+          <li>Là ở nhiệt độ thấp–trung bình (mức 1–2 chấm)</li>
+          <li>Luôn là mặt trái hoặc qua một lớp vải mỏng</li>
+          <li>Với chất liệu lụa, voan: tuyệt đối không là trực tiếp</li>
+        </ul>
+        <h3>Bảo Quản</h3>
+        <ul>
+          <li>Treo bằng móc chữ S vừa vặn, tránh móc quá chật gây biến dạng vai</li>
+          <li>Bảo quản trong túi vải thoáng khí — tránh túi nhựa kín</li>
+          <li>Để gói hút ẩm nhỏ khi cất vào tủ lâu ngày</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">Thanh Toán</div>
+    <!-- Progress -->
+    <div class="checkout-progress">
+      <div class="ck-step active" id="ck1"><div class="ck-dot">1</div>Thông tin</div>
+      <div class="ck-line"></div>
+      <div class="ck-step" id="ck2"><div class="ck-dot">2</div>Vận chuyển</div>
+      <div class="ck-line"></div>
+      <div class="ck-step" id="ck3"><div class="ck-dot">3</div>Thanh toán</div>
+    </div>
+    <!-- Step 1 -->
+    <div id="ckStep1">
+      <div class="form-group"><label class="form-label">Họ và Tên *</label><input class="form-input" placeholder="Nguyễn Thị A" id="ckName"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Điện Thoại *</label><input class="form-input" placeholder="0912 345 678"></div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" placeholder="email@gmail.com"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Tỉnh / Thành Phố</label>
+        <select class="form-input" style="cursor:pointer">
+          <option>Hà Nội</option><option>TP. Hồ Chí Minh</option><option>Đà Nẵng</option><option>Hải Phòng</option><option>Tỉnh thành khác</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Địa Chỉ *</label><input class="form-input" placeholder="Số nhà, đường, phường/xã, quận/huyện"></div>
+      <div class="form-group"><label class="form-label">Ghi Chú (không bắt buộc)</label><textarea class="form-textarea" placeholder="Yêu cầu đặc biệt, thời gian giao hàng..." style="min-height:80px"></textarea></div>
+      <button class="btn-auth" onclick="ckNext(2)">Tiếp Tục →</button>
+    </div>
+    <!-- Step 2 -->
+    <div id="ckStep2" style="display:none">
+      <div class="form-label" style="margin-bottom:14px">Phương Thức Vận Chuyển</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+        <label style="display:flex;gap:14px;align-items:center;background:var(--cream);border:2px solid var(--rose);border-radius:12px;padding:16px;cursor:pointer">
+          <input type="radio" name="ship" checked style="accent-color:var(--deep-rose)">
+          <div><div style="font-weight:700;font-size:0.9rem">✿ Giao hàng nhanh</div><div style="color:var(--text-light);font-size:0.8rem">Nội thành 2–4h | Tỉnh 1–2 ngày — 30.000₫</div></div>
+        </label>
+        <label style="display:flex;gap:14px;align-items:center;background:var(--cream);border:2px solid var(--border);border-radius:12px;padding:16px;cursor:pointer">
+          <input type="radio" name="ship" style="accent-color:var(--deep-rose)">
+          <div><div style="font-weight:700;font-size:0.9rem">🌸 Giao hàng tiêu chuẩn</div><div style="color:var(--text-light);font-size:0.8rem">2–4 ngày — Miễn phí</div></div>
+        </label>
+        <label style="display:flex;gap:14px;align-items:center;background:var(--cream);border:2px solid var(--border);border-radius:12px;padding:16px;cursor:pointer">
+          <input type="radio" name="ship" style="accent-color:var(--deep-rose)">
+          <div><div style="font-weight:700;font-size:0.9rem">⚡ Hỏa tốc nội thành</div><div style="color:var(--text-light);font-size:0.8rem">Trong 2 giờ — 65.000₫</div></div>
+        </label>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn-outline-dark" style="flex:1;padding:14px;border-radius:999px;font-size:0.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif" onclick="ckNext(1)">← Quay Lại</button>
+        <button class="btn-auth" style="flex:2;margin:0" onclick="ckNext(3)">Tiếp Tục →</button>
+      </div>
+    </div>
+    <!-- Step 3 -->
+    <div id="ckStep3" style="display:none">
+      <div class="form-label" style="margin-bottom:14px">Hình Thức Thanh Toán (Giả Lập)</div>
+      <div class="pay-opts">
+        <div class="pay-opt active" onclick="selPay(this)"><div class="p-icon">📱</div><div class="p-name">MoMo</div></div>
+        <div class="pay-opt" onclick="selPay(this)"><div class="p-icon">💙</div><div class="p-name">ZaloPay</div></div>
+        <div class="pay-opt" onclick="selPay(this)"><div class="p-icon">🏦</div><div class="p-name">VNPAY</div></div>
+        <div class="pay-opt" onclick="selPay(this)"><div class="p-icon">💵</div><div class="p-name">COD</div></div>
+        <div class="pay-opt" onclick="selPay(this)"><div class="p-icon">💳</div><div class="p-name">Visa/MC</div></div>
+        <div class="pay-opt" onclick="selPay(this)"><div class="p-icon">🏧</div><div class="p-name">Chuyển khoản</div></div>
+      </div>
+      <div style="background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:20px">
+        <div class="cs-row"><span>Tạm tính</span><span id="ckSub">0₫</span></div>
+        <div class="cs-row"><span>Phí vận chuyển</span><span>30.000₫</span></div>
+        <div class="cs-row"><span>Giảm giá</span><span style="color:var(--rose)">−0₫</span></div>
+        <div class="cs-row total"><span>Tổng Cộng</span><span class="price" id="ckTotal">0₫</span></div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn-outline-dark" style="flex:1;padding:14px;border-radius:999px;font-size:0.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif" onclick="ckNext(2)">← Quay Lại</button>
+        <button class="btn-auth" style="flex:2;margin:0" onclick="placeOrder()">✿ Đặt Hàng Ngay</button>
+      </div>
+    </div>
+    <!-- Success -->
+    <div class="order-done" id="orderDone">
+      <div class="done-icon">🌸</div>
+      <h3>Đặt Hàng Thành Công!</h3>
+      <p>Mã đơn hàng của bạn:</p>
+      <div class="order-code" id="oCode">#ELR-000000</div>
+      <p style="margin-top:12px">ELERA sẽ liên hệ xác nhận trong vòng 30 phút. Cảm ơn bạn đã tin yêu thương hiệu! 🌸</p>
+      <button class="btn-primary" style="margin-top:28px" onclick="closeModal();showPage('home')">Tiếp Tục Mua Sắm</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="siteFooter">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">ELERA</div>
+      <p>Thời trang nữ cao cấp, lấy cảm hứng từ vẻ đẹp tinh tế của hoa anh đào. Mỗi thiết kế là một câu chuyện về sự duyên dáng và tự tin của người phụ nữ hiện đại.</p>
+      <div class="footer-social">
+        <div class="f-social">📘</div>
+        <div class="f-social">📸</div>
+        <div class="f-social">🎵</div>
+        <div class="f-social">📌</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Bộ Sưu Tập</h4>
+      <ul>
+        <li><a onclick="filterAndGo('Đầm')">Váy & Đầm</a></li>
+        <li><a onclick="filterAndGo('Áo')">Áo Nữ</a></li>
+        <li><a onclick="filterAndGo('Quần')">Quần Nữ</a></li>
+        <li><a onclick="filterAndGo('Set')">Set Đồ</a></li>
+        <li><a onclick="filterAndGo('Áo khoác')">Áo Khoác</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Hỗ Trợ</h4>
+      <ul>
+        <li><a onclick="showPage('policy')">Đổi trả</a></li>
+        <li><a onclick="showPage('policy')">Vận chuyển</a></li>
+        <li><a onclick="showPage('policy')">Bảo mật</a></li>
+        <li><a onclick="showPage('policy')">Chăm sóc vải</a></li>
+        <li><a onclick="showPage('contact')">Liên hệ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Về ELERA</h4>
+      <ul>
+        <li><a onclick="showPage('about')">Câu chuyện</a></li>
+        <li><a onclick="showPage('about')">Đội ngũ</a></li>
+        <li><a>Tuyển dụng</a></li>
+        <li><a>Nhượng quyền</a></li>
+        <li><a onclick="showPage('policy')">Điều khoản</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 ELERA. All rights reserved. Made with 🌸 in Vietnam</p>
+    <div class="footer-pays">
+      <div class="f-pay">VNPAY</div><div class="f-pay">MoMo</div>
+      <div class="f-pay">ZaloPay</div><div class="f-pay">COD</div><div class="f-pay">VISA</div>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ═══════════ DATA ═══════════ */
+const products = [
+  {id:1,name:'Đầm Hoa Nhí Pastel Midi',brand:'ELERA · Váy & Đầm',price:650000,old:850000,rating:4.9,reviews:234,badge:'hot',cat:'Đầm',icon:'🌸',desc:'Đầm midi dáng xòe nhẹ, họa tiết hoa nhí pastel dịu dàng, kết hợp eo nhún thanh mảnh.'},
+  {id:2,name:'Set Áo Crop & Chân Váy Tweed',brand:'ELERA · Set Đồ',price:890000,old:1200000,rating:4.8,reviews:189,badge:'new',cat:'Set',icon:'✨',desc:'Set hai món sang trọng: áo crop tweed cổ vuông kết hợp chân váy chữ A midi.'},
+  {id:3,name:'Áo Blouse Ren Tay Phồng',brand:'ELERA · Áo Nữ',price:420000,old:580000,rating:4.9,reviews:312,badge:'sale',cat:'Áo',icon:'🤍',desc:'Áo blouse ren mỏng nhẹ, tay phồng lãng mạn, cổ tròn thanh lịch.'},
+  {id:4,name:'Đầm Midi Vintage Kẻ Sọc',brand:'ELERA · Váy & Đầm',price:590000,old:780000,rating:4.7,reviews:98,badge:'',cat:'Đầm',icon:'🎀',desc:'Đầm midi kẻ sọc vintage cổ điển, cổ V sâu vừa đủ quyến rũ.'},
+  {id:5,name:'Áo Khoác Tweed Hồng Pastel',brand:'ELERA · Áo Khoác',price:980000,old:1380000,rating:5.0,reviews:445,badge:'hot',cat:'Áo khoác',icon:'🌷',desc:'Áo khoác tweed hồng pastel cao cấp, form dáng crop thanh mảnh.'},
+  {id:6,name:'Quần Palazzo Lụa Trắng Kem',brand:'ELERA · Quần Nữ',price:480000,old:650000,rating:4.8,reviews:201,badge:'new',cat:'Quần',icon:'🕊️',desc:'Quần palazzo lụa mềm mại, dáng suông dài tôn chiều cao vóc dáng.'},
+  {id:7,name:'Đầm Dự Tiệc Lệch Vai',brand:'ELERA · Váy & Đầm',price:1200000,old:1600000,rating:4.9,reviews:156,badge:'limited',cat:'Đầm',icon:'💎',desc:'Đầm dự tiệc lệch vai sang trọng, chất liệu satin bóng mịn.'},
+  {id:8,name:'Áo Peplum Thêu Hoa Anh Đào',brand:'ELERA · Áo Nữ',price:520000,old:700000,rating:4.8,reviews:178,badge:'new',cat:'Áo',icon:'🌸',desc:'Áo peplum với họa tiết thêu hoa anh đào tinh tế, phần peplum xòe nhẹ nhàng.'},
+  {id:9,name:'Chân Váy Pleated Trắng Tinh',brand:'ELERA · Váy & Đầm',price:380000,old:490000,rating:4.6,reviews:267,badge:'sale',cat:'Đầm',icon:'🤍',desc:'Chân váy xếp ly trắng tinh, dài midi, phù hợp đi làm và dạo phố.'},
+  {id:10,name:'Set Jumpsuit Nhún Bèo Hồng',brand:'ELERA · Set Đồ',price:720000,old:950000,rating:4.7,reviews:122,badge:'hot',cat:'Set',icon:'🌺',desc:'Jumpsuit nhún bèo hồng ngọt ngào, dây điều chỉnh được hai bên vai.'},
+  {id:11,name:'Áo Len Cardigan Hồng Kem',brand:'ELERA · Áo Khoác',price:560000,old:740000,rating:4.8,reviews:88,badge:'new',cat:'Áo khoác',icon:'🧶',desc:'Cardigan len mềm mịn màu hồng kem, dáng rộng oversized trendy.'},
+  {id:12,name:'Quần Culottes Kẻ Houndstooth',brand:'ELERA · Quần Nữ',price:440000,old:580000,rating:4.5,reviews:143,badge:'',cat:'Quần',icon:'🖤',desc:'Quần culottes họa tiết houndstooth cổ điển, lưng thun co giãn thoải mái.'},
+];
+
+let cart = [];
+let currentProd = null;
+let prevPage = 'home';
+let filterCat = '';
+
+/* ═══════════ NAVIGATION ═══════════ */
+function showPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const pg=document.getElementById('page-'+p);
+  if(pg) pg.classList.add('active');
+  const nav=document.getElementById('nav-'+p);
+  if(nav) nav.classList.add('active');
+  window.scrollTo(0,0);
+  if(p==='home'){renderHome();}
+  if(p==='catalog'){renderCatalog();}
+  if(p==='cart'){renderCart();}
+}
+
+/* ═══════════ HOME ═══════════ */
+function renderHome(){
+  const newP=products.filter(p=>p.badge==='new'||p.badge==='hot').slice(0,4);
+  const best=products.filter(p=>p.rating>=4.8).slice(0,4);
+  document.getElementById('homeNewGrid').innerHTML=newP.map(prodCard).join('');
+  document.getElementById('homeBestGrid').innerHTML=best.map(prodCard).join('');
+}
+
+/* ═══════════ PRODUCT CARD ═══════════ */
+function prodCard(p){
+  const badgeCls=p.badge==='new'?'new':p.badge==='hot'?'hot':p.badge==='sale'?'sale':p.badge==='limited'?'limited':'';
+  const discount=p.old?Math.round((1-p.price/p.old)*100):0;
+  const imageHtml = p.img
+    ? `<img src="${p.img}" alt="${p.name}" loading="lazy" data-fallbacks="${(p.imgFallbacks||[]).join('|')}" onerror="handleImgError(this)">`
+    : `<div class="img-placeholder"><span class="ph-big">${p.icon}</span><span>[ Ảnh sản phẩm ]</span></div>`;
+  return`<div class="product-card" onclick="showDetail(${p.id})">
+    <div class="product-img">
+      ${imageHtml}
+      ${p.badge?`<div class="prod-badge ${badgeCls}">${p.badge==='sale'?'-'+discount+'%':p.badge.toUpperCase()}</div>`:''}
+      <div class="prod-actions">
+        <button class="action-btn" onclick="event.stopPropagation();toggleWish(this)" title="Yêu thích">♡</button>
+        <button class="action-btn" onclick="event.stopPropagation();addToCart(${p.id})" title="Thêm vào giỏ">🛍</button>
+      </div>
+      <button class="quick-add" onclick="event.stopPropagation();addToCart(${p.id})">✿ Thêm Vào Giỏ</button>
+    </div>
+    <div class="product-info">
+      <div class="product-brand">${p.brand}</div>
+      <div class="product-name">${p.name}</div>
+      <div class="product-rating"><span class="stars">★★★★★</span><span class="r-num">${p.rating}</span><span class="r-cnt">(${p.reviews})</span></div>
+      <div class="product-price-row">
+        <span class="product-price">${fmt(p.price)}</span>
+        ${p.old?`<span class="product-old">${fmt(p.old)}</span>`:''}
+      </div>
+      <div class="color-swatches">
+        <div class="swatch active" style="background:#fce8ed" title="Hồng nhạt"></div>
+        <div class="swatch" style="background:#fff;border:1px solid #ddd" title="Trắng"></div>
+        <div class="swatch" style="background:#2a1f24" title="Đen"></div>
+        <div class="swatch" style="background:#c9a96e" title="Be"></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ═══════════ CATALOG ═══════════ */
+let catSort='';
+function filterAndGo(cat){filterCat=cat;showPage('catalog');}
+function renderCatalog(){
+  let list=[...products];
+  const priceRangeEl=document.getElementById('priceRange');
+  const maxPrice=priceRangeEl?parseInt(priceRangeEl.value,10)*1000:Infinity;
+  if(filterCat)list=list.filter(p=>p.cat===filterCat);
+  const cats=document.querySelectorAll('.cat-filter');
+  const checked=[...cats].filter(c=>c.checked).map(c=>c.value);
+  if(checked.length)list=list.filter(p=>checked.includes(p.cat));
+  list=list.filter(p=>p.price<=maxPrice);
+  if(catSort==='price-asc')list.sort((a,b)=>a.price-b.price);
+  else if(catSort==='price-desc')list.sort((a,b)=>b.price-a.price);
+  else if(catSort==='rating')list.sort((a,b)=>b.rating-a.rating);
+  else if(catSort==='new')list.sort(()=>Math.random()-.5);
+  document.getElementById('catalogGrid').innerHTML=list.map(prodCard).join('');
+  document.getElementById('resultCount').textContent=`Hiển thị ${list.length} sản phẩm`;
+  updateFilterTags(checked);
+}
+function applyFilters(){filterCat='';renderCatalog();}
+function sortCatalog(v){catSort=v;renderCatalog();}
+function updateFilterTags(checked){
+  const el=document.getElementById('filterTagsEl');
+  const tags=[...checked];
+  if(filterCat&&!tags.includes(filterCat))tags.unshift(filterCat);
+  el.innerHTML=tags.map(t=>`<div class="filter-tag" onclick="removeFilterTag('${t}')">${t}</div>`).join('');
+}
+function removeFilterTag(t){
+  if(filterCat===t)filterCat='';
+  document.querySelectorAll('.cat-filter').forEach(c=>{if(c.value===t)c.checked=false;});
+  renderCatalog();
+}
+function clearFilters(){
+  filterCat='';catSort='';
+  document.querySelectorAll('.cat-filter').forEach(c=>c.checked=false);
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.color-f').forEach(c=>c.classList.remove('active'));
+  const pr=document.getElementById('priceRange');
+  if(pr){pr.value=pr.max;updatePrice(pr);}
+  renderCatalog();
+}
+function updatePrice(el){
+  document.getElementById('priceLabel').textContent=fmt(parseInt(el.value,10)*1000);
+  renderCatalog();
+}
+function toggleColor(el){el.classList.toggle('active');}
+function toggleSize(el){el.classList.toggle('active');}
+
+/* ═══════════ DETAIL ═══════════ */
+function showDetail(id){
+  currentProd=products.find(p=>p.id===id);
+  if(!currentProd)return;
+  prevPage=document.querySelector('.page.active')?.id?.replace('page-','')||'catalog';
+  document.getElementById('dBrand').textContent=currentProd.brand;
+  document.getElementById('dName').textContent=currentProd.name;
+  document.getElementById('dRating').textContent=currentProd.rating;
+  document.getElementById('dPrice').textContent=fmt(currentProd.price);
+  document.getElementById('dOldPrice').textContent=currentProd.old?fmt(currentProd.old):'';
+  const disc=currentProd.old?Math.round((1-currentProd.price/currentProd.old)*100):0;
+  document.getElementById('dSave').textContent=disc?'−'+disc+'%':'';
+  document.getElementById('dSave').style.display=disc?'':'none';
+  document.getElementById('dDescText').textContent=currentProd.desc;
+  document.getElementById('dQty').value=1;
+  const galleryMain=document.querySelector('.gallery-main');
+  const galleryThumbs=document.querySelector('.gallery-thumbs');
+  if(galleryMain&&galleryThumbs){
+    if(currentProd.img){
+      galleryMain.innerHTML=`<img src="${currentProd.img}" alt="${currentProd.name}" loading="lazy" data-fallbacks="${(currentProd.imgFallbacks||[]).join('|')}" onerror="handleImgError(this)">`;
+      galleryThumbs.innerHTML=[0,1,2,3].map(i=>`<div class="g-thumb ${i===0?'active':''}" onclick="selThumb(this)"><img src="${currentProd.img}" alt="${currentProd.name}" loading="lazy" data-fallbacks="${(currentProd.imgFallbacks||[]).join('|')}" onerror="handleImgError(this)"></div>`).join('');
+    }else{
+      galleryMain.innerHTML=`<div class="img-placeholder"><span class="ph-big">${currentProd.icon}</span><span>[ Ảnh sản phẩm chính ]</span></div>`;
+      galleryThumbs.innerHTML='<div class="g-thumb active">📷</div><div class="g-thumb">📷</div><div class="g-thumb">📷</div><div class="g-thumb">📷</div>';
+    }
+  }
+  // reset tabs
+  document.querySelectorAll('.dtab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  document.querySelectorAll('.dtab-content').forEach((c,i)=>c.classList.toggle('active',i===0));
+  // reset sizes
+  document.querySelectorAll('.size-opt').forEach((b,i)=>b.classList.toggle('active',i===0));
+  // reset colors
+  document.querySelectorAll('.color-opt').forEach((c,i)=>c.classList.toggle('active',i===0));
+  showPage('detail');
+}
+function goBack(){showPage(prevPage);}
+function changeQty(d){
+  const i=document.getElementById('dQty');
+  let v=parseInt(i.value)+d;if(v<1)v=1;if(v>99)v=99;i.value=v;
+}
+function selSize(el){document.querySelectorAll('.size-opt').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
+function selColor(el){document.querySelectorAll('.color-opt').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
+function selThumb(el){document.querySelectorAll('.g-thumb').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
+function switchDetailTab(tab,key){
+  document.querySelectorAll('.dtab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.dtab-content').forEach(c=>c.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById('dtab-'+key).classList.add('active');
+}
+function addCurrentToCart(){if(currentProd){addToCart(currentProd.id);}}
+function buyNow(){if(currentProd){addToCart(currentProd.id);openCheckout();}}
+
+/* ═══════════ CART ═══════════ */
+function addToCart(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  const ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;
+  else cart.push({...p,qty:1});
+  updateCartBadge();
+  showToast(`${p.name} đã thêm vào giỏ 🛍`,'success');
+}
+function updateCartBadge(){document.getElementById('cartBadge').textContent=cart.reduce((a,b)=>a+b.qty,0);}
+function renderCart(){
+  const el=document.getElementById('cartInner');
+  if(!cart.length){
+    el.innerHTML=`<div class="cart-page-inner" style="padding-top:120px"><div class="empty-cart-box"><div class="ec-icon">🛍</div><h3>Giỏ hàng đang trống</h3><p>Hãy khám phá bộ sưu tập ELERA và chọn cho mình những món đồ yêu thích nhé!</p><button class="btn-primary" onclick="showPage('catalog')">Khám Phá Ngay ✿</button></div></div>`;
+    return;
+  }
+  const sub=cart.reduce((a,b)=>a+b.price*b.qty,0);
+  const ship=sub>=500000?0:30000;
+  el.innerHTML=`<div class="cart-page-inner">
+    <div>
+      <div class="cart-title"><em>Giỏ Hàng</em> Của Bạn</div>
+      <div class="cart-items">
+        ${cart.map(it=>`<div class="cart-item">
+          <div class="ci-img"><span style="font-size:2.5rem">${it.icon}</span></div>
+          <div class="ci-info">
+            <div class="ci-name">${it.name}</div>
+            <div class="ci-meta">${it.brand}</div>
+            <div class="ci-bottom">
+              <div class="qty-ctrl">
+                <button class="qty-btn" onclick="updCartQty(${it.id},-1)">−</button>
+                <input type="text" class="qty-val" value="${it.qty}" readonly>
+                <button class="qty-btn" onclick="updCartQty(${it.id},1)">+</button>
+              </div>
+              <div class="ci-price">${fmt(it.price*it.qty)}</div>
+              <button class="ci-remove" onclick="rmCart(${it.id})" title="Xóa">🗑</button>
+            </div>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="cart-summary">
+      <div class="cs-title">Tóm Tắt Đơn Hàng</div>
+      <div class="cs-row"><span>Tạm tính (${cart.reduce((a,b)=>a+b.qty,0)} sản phẩm)</span><span>${fmt(sub)}</span></div>
+      <div class="cs-row"><span>Phí vận chuyển</span><span>${ship===0?'<span style="color:var(--rose)">Miễn phí</span>':fmt(ship)}</span></div>
+      <div class="cs-row total"><span>Tổng Cộng</span><span class="price">${fmt(sub+ship)}</span></div>
+      ${sub<500000?`<p style="color:var(--text-light);font-size:0.8rem;margin-top:10px">Mua thêm <strong style="color:var(--deep-rose)">${fmt(500000-sub)}</strong> để được miễn phí ship!</p>`:`<p style="color:var(--rose);font-size:0.8rem;margin-top:10px">✿ Đơn hàng của bạn được miễn phí vận chuyển!</p>`}
+      <div class="coupon-section">
+        <input class="coupon-input" placeholder="Mã giảm giá (thử: ELERA15)" id="cpInput">
+        <button class="btn-coupon" onclick="applyCP()">Áp Dụng Mã</button>
+      </div>
+      <button class="btn-checkout-main" onclick="openCheckout()">✿ Thanh Toán Ngay</button>
+      <div class="pay-methods">
+        <div class="pay-chip">MoMo</div><div class="pay-chip">ZaloPay</div>
+        <div class="pay-chip">VNPAY</div><div class="pay-chip">COD</div>
+      </div>
+    </div>
+  </div>`;
+}
+function updCartQty(id,d){
+  const it=cart.find(x=>x.id===id);if(!it)return;
+  it.qty+=d;if(it.qty<=0)cart=cart.filter(x=>x.id!==id);
+  updateCartBadge();renderCart();
+}
+function rmCart(id){cart=cart.filter(x=>x.id!==id);updateCartBadge();renderCart();showToast('Đã xóa khỏi giỏ hàng','error');}
+function applyCP(){
+  const v=document.getElementById('cpInput')?.value?.trim().toUpperCase();
+  if(v==='ELERA15')showToast('Áp dụng mã giảm 15% thành công! ✿','success');
+  else showToast('Mã không hợp lệ hoặc đã hết hạn','error');
+}
+
+/* ═══════════ CHECKOUT ═══════════ */
+function openCheckout(){
+  const sub=cart.reduce((a,b)=>a+b.price*b.qty,0);
+  const s1=document.getElementById('ckSub');const s2=document.getElementById('ckTotal');
+  if(s1)s1.textContent=fmt(sub);if(s2)s2.textContent=fmt(sub+30000);
+  document.getElementById('checkoutModal').classList.add('open');
+  ckNext(1);
+}
+function closeModal(){document.getElementById('checkoutModal').classList.remove('open');}
+function ckNext(n){
+  [1,2,3].forEach(i=>{
+    const step=document.getElementById('ckStep'+i);
+    if(step)step.style.display=i===n?'block':'none';
+    const dot=document.getElementById('ck'+i);
+    if(dot){dot.classList.remove('active','done');if(i<n)dot.classList.add('done');else if(i===n)dot.classList.add('active');}
+  });
+  document.getElementById('orderDone').style.display='none';
+}
+function selPay(el){document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('active'));el.classList.add('active');}
+function placeOrder(){
+  const code='ELR-'+Math.random().toString(36).substr(2,8).toUpperCase();
+  document.getElementById('oCode').textContent='#'+code;
+  [1,2,3].forEach(i=>{
+    const step=document.getElementById('ckStep'+i);if(step)step.style.display='none';
+    const dot=document.getElementById('ck'+i);if(dot){dot.classList.remove('active');dot.classList.add('done');}
+  });
+  document.getElementById('orderDone').style.display='block';
+  cart=[];updateCartBadge();
+}
+
+/* ═══════════ AUTH ═══════════ */
+function switchAuth(t){
+  document.querySelectorAll('.auth-tab').forEach((el,i)=>el.classList.toggle('active',(i===0&&t==='login')||(i===1&&t==='register')));
+  document.getElementById('authLogin').classList.toggle('active',t==='login');
+  document.getElementById('authRegister').classList.toggle('active',t==='register');
+}
+
+/* ═══════════ POLICY ═══════════ */
+function switchPolicy(key,el){
+  document.querySelectorAll('.policy-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.policy-nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('pol-'+key).classList.add('active');
+  el.classList.add('active');
+}
+
+/* ═══════════ WISHLIST ═══════════ */
+function toggleWish(btn){
+  btn.classList.toggle('active');
+  btn.textContent=btn.classList.contains('active')?'♥':'♡';
+  if(btn.classList.contains('active'))showToast('Đã thêm vào yêu thích ✿','success');
+}
+
+/* ═══════════ NEWSLETTER ═══════════ */
+function handleNewsletter(e){
+  e.preventDefault();
+  const v=document.getElementById('nlEmail')?.value;
+  if(v)showToast('Đăng ký thành công! Kiểm tra email để nhận voucher 15% 🌸','success');
+  return false;
+}
+
+/* ═══════════ TOAST ═══════════ */
+function showToast(msg,type='success'){
+  const c=document.getElementById('toastWrap');
+  const t=document.createElement('div');
+  t.className=`toast ${type}`;
+  t.innerHTML=`<span class="t-icon">${type==='success'?'✿':'✕'}</span>${msg}`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(40px)';t.style.transition='.3s';setTimeout(()=>t.remove(),300);},3000);
+}
+
+function handleImgError(imgEl){
+  const raw = imgEl.getAttribute('data-fallbacks') || '';
+  const list = raw ? raw.split('|') : [];
+  const next = list.shift();
+  if(next){
+    imgEl.setAttribute('data-fallbacks', list.join('|'));
+    imgEl.src = next;
+  }else{
+    imgEl.onerror = null;
+  }
+}
+
+/* ═══════════ UTILS ═══════════ */
+function fmt(n){return n.toLocaleString('vi-VN')+'₫';}
+
+/* ═══════════ INIT ═══════════ */
+/* Ảnh an toàn cho deploy: ưu tiên /assets/, fallback / rồi ./ */
+const buildAssetCandidates = (fileName) => [`/assets/${fileName}`, `/${fileName}`, `./${fileName}`];
+const localProductImages = [
+  'z7701922477402_86dc2dd0feb3571add51cfc03edbe0d2.jpg',
+  'z7701922481722_41730c5a332a02ddef637779632cd5e4.jpg',
+  'z7701922487838_bd9821ce81a92d968f76fd1be792dbdc.jpg',
+  'z7701922489543_930eb5cb2ff371401a78b9178e81831a.jpg',
+  'z7701922498015_a3f2bbb04b8c32298ca63755c5e2fc8b.jpg',
+  'z7702044213802_f31c8475afcf27c978fffb4686652c6a.jpg',
+  'z7702044217915_c3fe5fa2ddacf5fc39b65954cb064790.jpg',
+  'z7702044219065_dfd64a91c7101f7041d6fa4ff42f49a0.jpg',
+  'z7702044279838_8d3e5e49cb59d9a7aae17fad9bd6947f.jpg'
+];
+products.forEach((p,i)=>{
+  const f = localProductImages[i%localProductImages.length];
+  const c = buildAssetCandidates(f);
+  p.img = c[0];
+  p.imgFallbacks = c.slice(1);
+});
+
+const setImg = (id, fileName) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const c = buildAssetCandidates(fileName);
+  el.src = c[0];
+  el.setAttribute('data-fallbacks', c.slice(1).join('|'));
+  el.onerror = function(){ handleImgError(el); };
+};
+setImg('heroMainImg', 'z7701922477402_86dc2dd0feb3571add51cfc03edbe0d2.jpg');
+setImg('featuredMainImg', 'z7701922481722_41730c5a332a02ddef637779632cd5e4.jpg');
+setImg('lookImg1', 'z7701922489543_930eb5cb2ff371401a78b9178e81831a.jpg');
+setImg('lookImg2', 'z7701922498015_a3f2bbb04b8c32298ca63755c5e2fc8b.jpg');
+setImg('lookImg3', 'z7702044213802_f31c8475afcf27c978fffb4686652c6a.jpg');
+setImg('lookImg4', 'z7702044217915_c3fe5fa2ddacf5fc39b65954cb064790.jpg');
+setImg('lookImg5', 'z7702044219065_dfd64a91c7101f7041d6fa4ff42f49a0.jpg');
+setImg('aboutMainImg', 'z7702044279838_8d3e5e49cb59d9a7aae17fad9bd6947f.jpg');
+
+const catalogHero = document.querySelector('.catalog-hero--photo');
+if (catalogHero) {
+  const bgCandidates = buildAssetCandidates('z7701922487838_bd9821ce81a92d968f76fd1be792dbdc.jpg');
+  const probe = new Image();
+  let idx = 0;
+  const applyBg = (url) => {
+    catalogHero.style.backgroundImage =
+      'linear-gradient(160deg,rgba(255,245,248,0.94) 0%,rgba(255,250,252,0.9) 60%), url("' + url + '")';
+  };
+  probe.onload = function(){ applyBg(bgCandidates[idx]); };
+  probe.onerror = function(){
+    idx += 1;
+    if (idx < bgCandidates.length) probe.src = bgCandidates[idx];
+  };
+  probe.src = bgCandidates[idx];
+}
+
+const maxCatalogPrice=products.reduce((m,p)=>p.price>m?p.price:m,0);
+const prEl=document.getElementById('priceRange');
+if(prEl){
+  prEl.max=Math.ceil(maxCatalogPrice/1000);
+  prEl.value=prEl.max;
+  updatePrice(prEl);
+}
+renderHome();
+renderCatalog();
+</script>
+</body>
+</html>
